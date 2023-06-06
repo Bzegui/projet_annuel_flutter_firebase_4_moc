@@ -1,12 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(name: 'projet-annuel-flutter-firebase-4-moc',
-      options: DefaultFirebaseOptions.currentPlatform);
 
   const apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: '/');
   debugPrint('API_BASE_URL: $apiBaseUrl');
