@@ -31,6 +31,11 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
+  void logInWithCredentialsResetStateOnFailure() {
+    // resetting state to initial after login with credentials failure
+    emit(state.copyWith(status: FormzSubmissionStatus.initial));
+  }
+
   Future<void> logInWithCredentials() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
@@ -47,6 +52,7 @@ class LoginCubit extends Cubit<LoginState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
+      logInWithCredentialsResetStateOnFailure();
     } catch (_) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
