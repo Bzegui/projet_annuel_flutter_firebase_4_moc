@@ -29,8 +29,8 @@ class LoginForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/app_logo/chat-09.jpg',
-                height: 120,
+                'assets/app_logo/hipchat-logo.png',
+                height: 90,
               ),
               const SizedBox(height: 16),
               _EmailInput(),
