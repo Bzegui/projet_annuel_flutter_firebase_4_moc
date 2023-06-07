@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_imports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_imports.dart';
 
 import '../widgets/avatar.dart';
 
