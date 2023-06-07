@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/login/login_exports.dart';
-import 'package:flutter_firebase_login/sign_up/sign_up.dart';
+//import 'package:flutter_firebase_login/sign_up/sign_up.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 
@@ -29,7 +29,7 @@ class LoginForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/bloc_logo_small.png',
+                'assets/logo/chat-09.svg',
                 height: 120,
               ),
               const SizedBox(height: 16),
@@ -148,7 +148,7 @@ class _SignUpButton extends StatelessWidget {
     final theme = Theme.of(context);
     return TextButton(
       key: const Key('loginForm_createAccount_flatButton'),
-      onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
+      onPressed: () => /*Navigator.of(context).push<void>(SignUpPage.route())*/ 'not implemented',
       child: Text(
         'CREATE ACCOUNT',
         style: TextStyle(color: theme.primaryColor),
