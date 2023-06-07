@@ -29,7 +29,7 @@ class LoginForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/logo/chat-09.svg',
+                'assets/app_logo/chat-09.jpg',
                 height: 120,
               ),
               const SizedBox(height: 16),
