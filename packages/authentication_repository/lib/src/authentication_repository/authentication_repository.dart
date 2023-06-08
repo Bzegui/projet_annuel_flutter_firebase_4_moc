@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository_imports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
@@ -79,6 +79,12 @@ class LogInWithEmailAndPasswordFailure implements Exception {
       case 'wrong-password':
         return const LogInWithEmailAndPasswordFailure(
           'Incorrect password, please try again.',
+        );
+      case 'too-many-requests':
+        return const LogInWithEmailAndPasswordFailure(
+          'We have blocked all requests from this device due to unusual activity.'
+              'Try again later. Access to this account has been temporarily disabled due to many failed login attempts.'
+              'You can immediately restore it by resetting your password or you can try again later.'
         );
       default:
         return const LogInWithEmailAndPasswordFailure();
@@ -251,6 +257,7 @@ class AuthenticationRepository {
         password: password,
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
+      debugPrint(e.code);
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithEmailAndPasswordFailure();
