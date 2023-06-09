@@ -124,7 +124,7 @@ class _SignUpButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            backgroundColor: Colors.orangeAccent,
+            backgroundColor: Colors.deepPurpleAccent,
           ),
           onPressed: state.isValid
               ? () => context.read<SignUpCubit>().signUpFormSubmitted()
