@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 
 import 'app_auth/bloc/observer/app_auth_bloc_observer.dart';
 
+//TODO: don't forget to test login and sign up on iOS simulator for iOS app !!!
+
 Future<void> main() async {
   const apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: '/');
   debugPrint('API_BASE_URL: $apiBaseUrl');
