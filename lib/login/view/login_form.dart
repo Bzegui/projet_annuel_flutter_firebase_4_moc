@@ -4,6 +4,7 @@ import 'package:projet_annuel_flutter_firebase_4_moc/login/login_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/sign_up/sign_up_exports.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -108,7 +109,8 @@ class _LoginButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            backgroundColor: const Color(0xFFFFD600),
+            //TODO: change button background color
+            backgroundColor: Colors.deepPurpleAccent,
           ),
           onPressed: state.isValid
               ? () => context.read<LoginCubit>().logInWithCredentials()
