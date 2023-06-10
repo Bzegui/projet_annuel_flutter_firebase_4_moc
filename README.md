@@ -9,6 +9,7 @@ dépôt git projet_annuel_flutter_firebase_4_MOC
 ### iOS application fast project dependencies build :
 
 - cd projet_annuel_flutter_firebase_4_moc;
+- flutter pub get;
 - cd ios;
 - pod init;
 - pod install;
