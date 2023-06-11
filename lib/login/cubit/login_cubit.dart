@@ -1,4 +1,4 @@
-import 'package:authentication_repository/authentication_repository_imports.dart';
+import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs_exports.dart';
@@ -31,11 +31,6 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void logInWithCredentialsResetStateOnFailure() {
-    // resetting state to initial after login with credentials failure
-    emit(state.copyWith(status: FormzSubmissionStatus.initial));
-  }
-
   Future<void> logInWithCredentials() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
@@ -52,7 +47,11 @@ class LoginCubit extends Cubit<LoginState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
-      logInWithCredentialsResetStateOnFailure();
+      emit(
+        state.copyWith(
+          status: FormzSubmissionStatus.initial,
+        ), // reset form submission status by emitting new initial state after failure state.
+      );
     } catch (_) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
