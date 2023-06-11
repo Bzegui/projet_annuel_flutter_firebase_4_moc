@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:authentication_repository/authentication_repository_imports.dart';
+import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

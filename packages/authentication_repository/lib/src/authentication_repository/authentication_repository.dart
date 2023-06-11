@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:authentication_repository/authentication_repository_imports.dart';
+import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
@@ -83,8 +83,8 @@ class LogInWithEmailAndPasswordFailure implements Exception {
       case 'too-many-requests':
         return const LogInWithEmailAndPasswordFailure(
           'We have blocked all requests from this device due to unusual activity.'
-              'Try again later. Access to this account has been temporarily disabled due to many failed login attempts.'
-              'You can immediately restore it by resetting your password or you can try again later.'
+          'Try again later. Access to this account has been temporarily disabled due to many failed login attempts.'
+          'You can immediately restore it by resetting your password or you can try again later.'
         );
       default:
         return const LogInWithEmailAndPasswordFailure();
