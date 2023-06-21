@@ -50,10 +50,16 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)
+            ),
             labelText: 'email',
             helperText: '',
             errorText:
             state.email.displayError != null ? 'invalid email' : null,
+            fillColor: Colors.white70,
+            filled: true,
+            hintText: AutofillHints.givenName,
           ),
         );
       },
@@ -73,10 +79,16 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignUpCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)
+            ),
             labelText: 'password',
             helperText: '',
             errorText:
             state.password.displayError != null ? 'invalid password' : null,
+            fillColor: Colors.white70,
+            filled: true,
+            hintText: AutofillHints.givenName,
           ),
         );
       },
@@ -99,11 +111,17 @@ class _ConfirmPasswordInput extends StatelessWidget {
               .confirmedPasswordChanged(confirmPassword),
           obscureText: true,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)
+            ),
             labelText: 'confirm password',
             helperText: '',
             errorText: state.confirmedPassword.displayError != null
                 ? 'passwords do not match'
                 : null,
+            fillColor: Colors.white70,
+            filled: true,
+            hintText: AutofillHints.givenName,
           ),
         );
       },
@@ -124,7 +142,7 @@ class _SignUpButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: const Color.fromRGBO(102, 234, 163, 1),
           ),
           onPressed: state.isValid
               ? () => context.read<SignUpCubit>().signUpFormSubmitted()

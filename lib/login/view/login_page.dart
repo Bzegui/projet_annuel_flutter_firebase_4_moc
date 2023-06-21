@@ -11,7 +11,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcome to Chatterbox')),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white70,
+        //title: const Text('Chatbox',
+          //style: TextStyle(color: Colors.black),
+        //),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider(

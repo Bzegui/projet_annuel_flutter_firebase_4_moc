@@ -30,10 +30,11 @@ class LoginForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/app_logo/hipchat-logo.png',
+                'assets/app_logo/logo-transparent-png.png',
                 height: 90,
               ),
-              const SizedBox(height: 16),
+
+              const SizedBox(height: 80),
               _EmailInput(),
               const SizedBox(height: 8),
               _PasswordInput(),
@@ -62,10 +63,17 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white70)
+            ),
             labelText: 'email',
             helperText: '',
             errorText:
             state.email.displayError != null ? 'invalid email' : null,
+            fillColor: Colors.white70,
+            filled: true,
+            hintText: AutofillHints.givenName,
+            //hintStyle: TextStyle(color: Colors.grey[500]),
           ),
         );
       },
@@ -85,10 +93,16 @@ class _PasswordInput extends StatelessWidget {
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white70)
+            ),
             labelText: 'password',
             helperText: '',
             errorText:
             state.password.displayError != null ? 'invalid password' : null,
+            fillColor: Colors.white70,
+            filled: true,
+
           ),
         );
       },
@@ -107,10 +121,10 @@ class _LoginButton extends StatelessWidget {
           key: const Key('loginForm_continue_raisedButton'),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(20),
             ),
             //TODO: change button background color
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: const Color.fromRGBO(102, 234, 163, 1),
           ),
           onPressed: state.isValid
               ? () => context.read<LoginCubit>().logInWithCredentials()
@@ -136,9 +150,9 @@ class _GoogleLoginButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        backgroundColor: theme.colorScheme.secondary,
+        backgroundColor: const Color.fromRGBO(102, 234, 163, 1),
       ),
-      icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
+      icon: const Icon(FontAwesomeIcons.google),
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
     );
   }

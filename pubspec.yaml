@@ -40,7 +40,7 @@ dependencies:
   #equatable dependencies
   equatable: ^2.0.3
   #firebase dependencies
-  firebase_core: ^2.1.0
+  firebase_core: ^2.14.0
   cloud_firestore: ^4.5.3
   #flow dependencies
   flow_builder: ^0.0.9
@@ -57,6 +57,7 @@ dependencies:
   #flutter dependencies
   flutter:
     sdk: flutter
+  firebase_auth: ^4.6.3
 
 dev_dependencies:
   #bloc dev-dependencies
@@ -79,6 +80,7 @@ flutter:
   #assets folder
   assets:
     - assets/app_logo/
+
 
 #dependencies override
 dependency_overrides:
