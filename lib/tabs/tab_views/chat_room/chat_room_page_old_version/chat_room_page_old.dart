@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_exports.dart';
 
-import '../widgets/avatar.dart';
+//import 'widgets/avatar.dart';
 
 class ChatRoomPage extends StatelessWidget {
   const ChatRoomPage({super.key});
@@ -32,7 +32,7 @@ class ChatRoomPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Avatar(photo: user.photo),
+            //Avatar(photo: user.photo),
             const SizedBox(height: 4),
             Text(user.email ?? '', style: textTheme.titleLarge),
             const SizedBox(height: 4),

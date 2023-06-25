@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_exports.dart';
+
+import 'widgets/avatar.dart';
+
+class ChatRoomPage extends StatelessWidget {
+  const ChatRoomPage({super.key});
+
+  static Page<void> page() => const MaterialPage<void>(child: ChatRoomPage());
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final user = context.select((AppAuthBloc bloc) => bloc.state.user);
+
+    return const Scaffold(
+      body: Align(
+        alignment: Alignment(0, -1 / 3),
+        child: Text("chat page")
+      ),
+    );
+  }
+}
+
+/**
+ * Align(
+    alignment: const Alignment(0, -1 / 3),
+    child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+    Avatar(photo: user.photo),
+    const SizedBox(height: 4),
+    Text(user.email ?? '', style: textTheme.titleLarge),
+    const SizedBox(height: 4),
+    Text(user.name ?? '', style: textTheme.headlineSmall),
+    ],
+    ),
+    ),
+ *
+ * */

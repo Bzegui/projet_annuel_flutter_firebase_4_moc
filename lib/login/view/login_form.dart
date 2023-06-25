@@ -110,7 +110,7 @@ class _LoginButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             //TODO: change button background color
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: Colors.indigo,
           ),
           onPressed: state.isValid
               ? () => context.read<LoginCubit>().logInWithCredentials()

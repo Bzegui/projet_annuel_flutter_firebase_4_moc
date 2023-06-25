@@ -7,6 +7,9 @@ final theme = ThemeData(
   primaryColorLight: const Color(0xFFB2EBF2),
   primaryColor: const Color(0xFF00BCD4),
   colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.indigo
+  ),
   scaffoldBackgroundColor: const Color(0xFFE0F2F1),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
