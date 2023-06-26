@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/chat_room/chat_room_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/settings/settings_page.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/contacts/contacts_page_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/settings/settings_page_exports.dart';
 
 import '../../app_auth/bloc/app_auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,10 @@ TabBar get _tabBar => const TabBar(
       icon: Icon(Icons.chat_bubble),
       text: ('Chat'),
 
+    ),
+    Tab(
+      icon: Icon(Icons.contact_page),
+      text: 'Contacts',
     ),
     Tab(
       icon: Icon(Icons.settings),
@@ -70,7 +75,8 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
         body: const TabBarView(
           children: <Widget>[
             ChatRoomPage(),
-            SettingsPage()
+            ContactsPage(),
+            SettingsPage(),
           ],
         ),
       ),
