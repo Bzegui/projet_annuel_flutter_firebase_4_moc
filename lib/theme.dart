@@ -21,6 +21,9 @@ final theme = ThemeData(
     ),
     floatingLabelStyle: const TextStyle(
         color: Colors.indigo
-    )
+    ),
   ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: Colors.indigo
+  )
 );
