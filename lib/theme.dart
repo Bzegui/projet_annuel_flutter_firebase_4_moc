@@ -15,5 +15,12 @@ final theme = ThemeData(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
     ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.indigo, width: 2.0),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    floatingLabelStyle: const TextStyle(
+        color: Colors.indigo
+    )
   ),
 );
