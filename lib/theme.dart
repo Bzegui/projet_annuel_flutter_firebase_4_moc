@@ -6,24 +6,13 @@ final theme = ThemeData(
   primaryColorDark: const Color(0xFF0097A7),
   primaryColorLight: const Color(0xFFB2EBF2),
   primaryColor: const Color(0xFF00BCD4),
-  colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.indigo
-  ),
+  /* colorScheme => define main color theme of the app */
+  colorScheme: const ColorScheme.light(primary: Colors.indigo,
+      secondary: Color(0xFF009688)),
   scaffoldBackgroundColor: const Color(0xFFE0F2F1),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
     ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.indigo, width: 2.0),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    floatingLabelStyle: const TextStyle(
-        color: Colors.indigo
-    ),
   ),
-  textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: Colors.indigo
-  )
 );
