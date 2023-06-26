@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/chat_room/chat_room_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/settings/settings_page.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/contacts/contacts_page_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/settings/settings_page_exports.dart';
 
 import '../../app_auth/bloc/app_auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,10 @@ TabBar get _tabBar => const TabBar(
       icon: Icon(Icons.chat_bubble),
       text: ('Chat'),
 
+    ),
+    Tab(
+      icon: Icon(Icons.contact_page),
+      text: 'Contacts',
     ),
     Tab(
       icon: Icon(Icons.settings),
@@ -61,64 +66,19 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
           bottom: PreferredSize(
             preferredSize: _tabBar.preferredSize,
             child: Material(
-              color: Colors.indigoAccent, //<-- SEE HERE
+              color: Colors.indigoAccent, //<-- SEE HERE to mod tab bar color
               child: _tabBar,
             ),
           ),
-          //backgroundColor: Colors.indigo,
         ),
         body: const TabBarView(
           children: <Widget>[
             ChatRoomPage(),
-            SettingsPage()
+            ContactsPage(),
+            SettingsPage(),
           ],
         ),
       ),
     );
-
-    /*return DefaultTabController(
-        initialIndex: 1,
-        length: tabsCount,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Chat'),
-            actions: <Widget>[
-              Align(
-                alignment: Alignment.center,
-                child: Text(user.email ?? '', textAlign: TextAlign.center,),
-              ),
-              IconButton(
-                key: const Key('homePage_logout_iconButton'),
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: () {
-                  context.read<AppAuthBloc>().add(const AppAuthLogoutRequested());
-                },
-              ),
-            ],
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.chat_bubble, color: Colors.white,),
-                  text: ('Chat'),
-
-                ),
-                Tab(
-                  icon: Icon(Icons.settings),
-                  text: 'Settings',
-                ),
-              ],
-            ),
-          ),
-          body: const TabBarView(
-            children: <Widget>[
-              ChatRoomPage(),
-              SettingsPage()
-            ],
-          ),
-          backgroundColor: Colors.lightBlue,
-        )
-    );
-  }*/
   }
-
 }

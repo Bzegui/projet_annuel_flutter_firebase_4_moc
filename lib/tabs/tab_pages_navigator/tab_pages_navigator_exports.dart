@@ -1,1 +1,1 @@
-export 'tab_pages_navigator_example.dart';
+export 'tab_pages_navigator.dart';
