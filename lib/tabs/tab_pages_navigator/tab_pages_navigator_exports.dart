@@ -1,0 +1,1 @@
+export 'tab_pages_navigator.dart';
