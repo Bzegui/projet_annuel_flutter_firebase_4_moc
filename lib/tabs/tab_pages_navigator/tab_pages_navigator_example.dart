@@ -66,11 +66,10 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
           bottom: PreferredSize(
             preferredSize: _tabBar.preferredSize,
             child: Material(
-              color: Colors.indigoAccent, //<-- SEE HERE
+              color: Colors.indigoAccent, //<-- SEE HERE to mod tab bar color
               child: _tabBar,
             ),
           ),
-          //backgroundColor: Colors.indigo,
         ),
         body: const TabBarView(
           children: <Widget>[
