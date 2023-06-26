@@ -6,7 +6,7 @@ import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_exports.d
 import 'package:projet_annuel_flutter_firebase_4_moc/login/login_exports.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/tab_views/chat_room/chat_room_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/chat_room/chat_room_exports.dart';
 
 class MockUser extends Mock implements User {}
 
