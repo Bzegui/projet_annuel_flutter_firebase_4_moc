@@ -75,50 +75,5 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
         ),
       ),
     );
-
-    /*return DefaultTabController(
-        initialIndex: 1,
-        length: tabsCount,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Chat'),
-            actions: <Widget>[
-              Align(
-                alignment: Alignment.center,
-                child: Text(user.email ?? '', textAlign: TextAlign.center,),
-              ),
-              IconButton(
-                key: const Key('homePage_logout_iconButton'),
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: () {
-                  context.read<AppAuthBloc>().add(const AppAuthLogoutRequested());
-                },
-              ),
-            ],
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.chat_bubble, color: Colors.white,),
-                  text: ('Chat'),
-
-                ),
-                Tab(
-                  icon: Icon(Icons.settings),
-                  text: 'Settings',
-                ),
-              ],
-            ),
-          ),
-          body: const TabBarView(
-            children: <Widget>[
-              ChatRoomPage(),
-              SettingsPage()
-            ],
-          ),
-          backgroundColor: Colors.lightBlue,
-        )
-    );
-  }*/
   }
-
 }
