@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/sign_up/sign_up_exports.dart';
 import 'package:formz/formz.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/sign_up/sign_up_exports.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});

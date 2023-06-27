@@ -15,4 +15,7 @@ final theme = ThemeData(
       borderRadius: BorderRadius.circular(8),
     ),
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: Colors.indigoAccent
+  )
 );
