@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/chat_room/chat_room_exports.dart';
-import '../../app_auth/bloc/app_auth_bloc.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
+import '../tab_views/chat_room/chat_room_exports.dart';
 
 class TabPagesNavigator extends StatefulWidget {
   const TabPagesNavigator({Key? key}) : super(key: key);

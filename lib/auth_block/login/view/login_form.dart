@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/login/login_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/sign_up/sign_up_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/login/login_exports.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/sign_up/sign_up_exports.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
