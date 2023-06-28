@@ -34,10 +34,10 @@ void main() {
 
     testWidgets('renders AppAuthView', (tester) async {
       await tester.pumpWidget(
-        AppAuth(authenticationRepository: authenticationRepository),
+        ChatterboxApp(authenticationRepository: authenticationRepository),
       );
       await tester.pump();
-      expect(find.byType(AppAuthView), findsOneWidget);
+      expect(find.byType(ChatterboxAppView), findsOneWidget);
     });
   });
 
@@ -56,7 +56,7 @@ void main() {
         RepositoryProvider.value(
           value: authenticationRepository,
           child: MaterialApp(
-            home: BlocProvider.value(value: appAuthBloc, child: const AppAuthView()),
+            home: BlocProvider.value(value: appAuthBloc, child: const ChatterboxAppView()),
           ),
         ),
       );
@@ -72,7 +72,7 @@ void main() {
         RepositoryProvider.value(
           value: authenticationRepository,
           child: MaterialApp(
-            home: BlocProvider.value(value: appAuthBloc, child: const AppAuthView()),
+            home: BlocProvider.value(value: appAuthBloc, child: const ChatterboxAppView()),
           ),
         ),
       );
