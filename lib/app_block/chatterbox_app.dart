@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
 
+import '../pages_navigation_block/pages_navigator/bloc/pages_navigator_bloc.dart';
+
 class ChatterboxApp extends StatelessWidget {
   const ChatterboxApp({
     required AuthenticationRepository authenticationRepository,
@@ -26,6 +28,9 @@ class ChatterboxApp extends StatelessWidget {
             create: (_) => AppAuthBloc(
               authenticationRepository: _authenticationRepository,
             ),
+          ),
+          BlocProvider<PagesNavigatorBloc>(
+              create: (context) => PagesNavigatorBloc()
           )
         ],
         child: const ChatterboxAppView(),
