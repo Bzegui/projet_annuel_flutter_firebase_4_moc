@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/contacts/contacts_page_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/settings/settings_page_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,10 +21,6 @@ TabBar get _tabBar => const TabBar(
       icon: Icon(Icons.chat_bubble),
       text: ('Chat'),
 
-    ),
-    Tab(
-      icon: Icon(Icons.contact_page),
-      text: 'Contacts',
     ),
     Tab(
       icon: Icon(Icons.settings),
@@ -73,7 +68,6 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
         body: const TabBarView(
           children: <Widget>[
             ChatRoomPage(),
-            ContactsPage(),
             SettingsPage(),
           ],
         ),

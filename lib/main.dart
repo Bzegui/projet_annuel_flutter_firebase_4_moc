@@ -17,7 +17,7 @@ Future<void> main() async {
   final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
 
-  runApp(AppAuth(authenticationRepository: authenticationRepository));
+  runApp(ChatterboxApp(authenticationRepository: authenticationRepository));
 }
 
 

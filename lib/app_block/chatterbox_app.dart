@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
-import '../auth_routes/auth_routes.dart';
 
-class AppAuth extends StatelessWidget {
-  const AppAuth({
+class ChatterboxApp extends StatelessWidget {
+  const ChatterboxApp({
     required AuthenticationRepository authenticationRepository,
     super.key,
   }) : _authenticationRepository = authenticationRepository;
@@ -15,20 +14,28 @@ class AppAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AppAuthBloc(
-          authenticationRepository: _authenticationRepository,
-        ),
-        child: const AppAuthView(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationRepository>(
+          create: (context) => _authenticationRepository,
+        )
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AppAuthBloc>(
+            create: (_) => AppAuthBloc(
+              authenticationRepository: _authenticationRepository,
+            ),
+          )
+        ],
+        child: const ChatterboxAppView(),
       ),
     );
   }
 }
 
-class AppAuthView extends StatelessWidget {
-  const AppAuthView({super.key});
+class ChatterboxAppView extends StatelessWidget {
+  const ChatterboxAppView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +45,7 @@ class AppAuthView extends StatelessWidget {
         state: context.select((AppAuthBloc bloc) => bloc.state.status),
         onGeneratePages: onGenerateAppAuthViewPages,
       ),
+
     );
   }
 }

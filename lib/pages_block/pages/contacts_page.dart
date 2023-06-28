@@ -9,16 +9,10 @@ class ContactsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Align(
-        alignment: Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            //Avatar(photo: user.photo),
-            SizedBox(height: 4),
-            Text("contacts"),
-          ],
-        ),
+          alignment: Alignment(0, -1 / 3),
+          child: Text("contacts page")
       ),
     );
   }
 }
+
