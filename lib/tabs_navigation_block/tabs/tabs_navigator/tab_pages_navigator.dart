@@ -21,12 +21,7 @@ TabBar get _tabBar => const TabBar(
     Tab(
       icon: Icon(Icons.chat_bubble),
       text: ('Chat'),
-
     ),
-    /*Tab(
-      icon: Icon(Icons.contact_page),
-      text: 'Contacts',
-    ),*/
     Tab(
       icon: Icon(Icons.settings),
       text: 'Settings',
@@ -38,14 +33,11 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
     final user = context.select((AppAuthBloc bloc) => bloc.state.user);
-    const int tabsCount = 3;
+    const int tabsCount = 2;
 
     return DefaultTabController(
-      length: 3,
+      length: tabsCount,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
