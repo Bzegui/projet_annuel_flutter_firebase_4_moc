@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts_page.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({Key? key}) : super(key: key);
@@ -28,7 +29,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   void _onNewChatCreated(BuildContext context) {
-
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (routeContext) => const ContactsPage(),
+    ));
   }
 }
 

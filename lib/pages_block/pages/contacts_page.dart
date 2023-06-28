@@ -7,8 +7,11 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Align(
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Contacts'),
+        ),
+      body: const Align(
           alignment: Alignment(0, -1 / 3),
           child: Text("contacts page")
       ),

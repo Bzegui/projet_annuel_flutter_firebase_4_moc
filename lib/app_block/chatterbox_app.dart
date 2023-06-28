@@ -26,7 +26,7 @@ class ChatterboxApp extends StatelessWidget {
             create: (_) => AppAuthBloc(
               authenticationRepository: _authenticationRepository,
             ),
-          )
+          ),
         ],
         child: const ChatterboxAppView(),
       ),
@@ -45,7 +45,6 @@ class ChatterboxAppView extends StatelessWidget {
         state: context.select((AppAuthBloc bloc) => bloc.state.status),
         onGeneratePages: onGenerateAppAuthViewPages,
       ),
-
     );
   }
 }
