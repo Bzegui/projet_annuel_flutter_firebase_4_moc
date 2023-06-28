@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/settings/settings_page_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs_navigation_block/tabs/tab_views/settings/settings_page_exports.dart';
+import '../../../auth_block/app_auth/app_auth_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../tab_views/chat_room/chat_room_exports.dart';
 
 class TabPagesNavigator extends StatefulWidget {
@@ -15,13 +14,19 @@ class TabPagesNavigator extends StatefulWidget {
 }
 
 TabBar get _tabBar => const TabBar(
-  labelColor: Colors.white,
+  labelColor: Color(0xFFE0F2F1),
+  indicatorColor: Color(0xFFE0F2F1),
+  indicatorWeight: 4,
   tabs: <Widget>[
     Tab(
       icon: Icon(Icons.chat_bubble),
       text: ('Chat'),
 
     ),
+    /*Tab(
+      icon: Icon(Icons.contact_page),
+      text: 'Contacts',
+    ),*/
     Tab(
       icon: Icon(Icons.settings),
       text: 'Settings',
@@ -43,7 +48,7 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Chat'),
+          title: const Text('Home'),
           actions: <Widget>[
             Align(
               alignment: Alignment.center,
