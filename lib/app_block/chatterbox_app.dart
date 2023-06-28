@@ -45,7 +45,6 @@ class ChatterboxAppView extends StatelessWidget {
         state: context.select((AppAuthBloc bloc) => bloc.state.status),
         onGeneratePages: onGenerateAppAuthViewPages,
       ),
-
     );
   }
 }
