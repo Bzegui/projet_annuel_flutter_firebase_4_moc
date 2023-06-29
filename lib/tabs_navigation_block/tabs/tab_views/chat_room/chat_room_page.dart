@@ -23,12 +23,12 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             Icons.chat,
             color: Color(0xFFE0F2F1),
         ),
-        onPressed: () => _onNewChatCreated(context),
+        onPressed: () => _onCreateNewChat(context),
       ),
     );
   }
 
-  void _onNewChatCreated(BuildContext context) {
+  void _onCreateNewChat(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (routeContext) => const ContactsPage(),
     ));
