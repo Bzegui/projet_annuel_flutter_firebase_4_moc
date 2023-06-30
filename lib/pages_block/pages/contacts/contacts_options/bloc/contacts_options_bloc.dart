@@ -13,8 +13,6 @@ class ContactsOptionsBloc extends Bloc<ContactsOptionsEvent, ContactsOptionsRepo
     on<GetAllContactsOptions>((event, emit) async {
       emit(state.copyWith(status: ContactsOptionsStatus.loading));
 
-      final count = event.count;
-
       try {
         final contactsOptions = await contactsOptionsRepository.getContactsOptions();
         emit(state.copyWith(status: ContactsOptionsStatus.success, contactsOptions: contactsOptions));
