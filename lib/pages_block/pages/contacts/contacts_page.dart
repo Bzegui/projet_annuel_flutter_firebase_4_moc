@@ -12,10 +12,19 @@ class ContactsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Contacts'),
       ),
-      body: const Align(
-          alignment: Alignment(0, -1 / 3),
-          child: Text("contacts page")
-      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                const ListTile(
+                  title: Text("contacts options"),
+                )
+              ]
+            )
+          )
+        ],
+      )
     );
   }
 
