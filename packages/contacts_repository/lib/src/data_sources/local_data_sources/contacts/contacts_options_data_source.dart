@@ -2,7 +2,7 @@ import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 
 const defaultContactsOptions = <ContactsOption> [
-  ContactsOption(icon: Icons.person_add, label: 'Nouveau contact'),
+  ContactsOption(id: "1", icon: Icons.person_add, label: 'Nouveau contact'),
 ];
 
 @immutable
