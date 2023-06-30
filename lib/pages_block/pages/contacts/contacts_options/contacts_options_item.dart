@@ -15,6 +15,5 @@ class ContactOptionItem extends StatelessWidget {
       title: Text(contactsOption.label),
       leading: Icon(contactsOption.icon),
     );
-    return const Placeholder();
   }
 }
