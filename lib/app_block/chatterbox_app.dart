@@ -18,7 +18,7 @@ class ChatterboxApp extends StatelessWidget {
       providers: [
         RepositoryProvider<AuthenticationRepository>(
           create: (context) => _authenticationRepository,
-        )
+        ),
       ],
       child: MultiBlocProvider(
         providers: [

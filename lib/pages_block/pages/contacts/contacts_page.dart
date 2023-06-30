@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contact_option_item.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contacts_options/contacts_options_list.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);
@@ -18,11 +17,7 @@ class ContactsPage extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                /*ListView.builder(
-                    itemCount: contact,
-                    itemBuilder: itemBuilder
-                )*/
-                const Text('data')
+                const ContactsOptionsList()
               ]
             )
           )
