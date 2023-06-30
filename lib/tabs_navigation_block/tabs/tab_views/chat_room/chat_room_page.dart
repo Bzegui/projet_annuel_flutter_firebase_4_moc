@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts_page.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contacts_page.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({Key? key}) : super(key: key);
