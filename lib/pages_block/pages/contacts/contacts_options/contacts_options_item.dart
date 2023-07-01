@@ -11,9 +11,31 @@ class ContactOptionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(contactsOption.label),
-      leading: Icon(contactsOption.icon),
+    return Padding(
+        padding: const EdgeInsets.only(left: 0, top: 15, bottom: 12),
+        child: ListTile(
+            title: Text(
+                contactsOption.label,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                ),
+            ),
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: const BoxDecoration(
+                color: Colors.indigoAccent,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Icon(
+                  contactsOption.icon,
+                  color: const Color(0xFFE0F2F1),
+                ),
+              ),
+            )
+        )
     );
   }
 }
