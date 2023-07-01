@@ -44,16 +44,16 @@ class ContactsOptionsList extends StatelessWidget {
                               );
                             }
 
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: contactsOptions.length,
-                              itemBuilder: (context, index) {
-                                final contactsOption = contactsOptions[index];
-                                return ContactOptionItem(
-                                  contactsOption: contactsOption,
-                                );
-                              },
-                            );
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: contactsOptions.length,
+                            itemBuilder: (context, index) {
+                              final contactsOption = contactsOptions[index];
+                              return ContactOptionItem(
+                                contactsOption: contactsOption,
+                              );
+                            },
+                          );
                         }
                       }
                   ),
