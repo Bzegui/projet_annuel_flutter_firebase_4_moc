@@ -11,6 +11,7 @@ final theme = ThemeData(
       secondary: Color(0xFF009688)),
   scaffoldBackgroundColor: const Color(0xFFE0F2F1),
   iconTheme: const IconThemeData(color: Color(0xFFE0F2F1)),
+  highlightColor: Colors.indigoAccent,
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
@@ -25,5 +26,8 @@ final theme = ThemeData(
       backgroundColor: Colors.black,
       foregroundColor: Colors.yellow
     )
+  ),
+  listTileTheme: const ListTileThemeData(
+    selectedTileColor: Colors.indigoAccent
   )
 );
