@@ -30,4 +30,4 @@ then, run flutter project on iOS simulator;
 - v0.0.1.1;
 
 # actual version stable release tag :
-- v0.0.3;
+- v0.0.4;
