@@ -34,6 +34,9 @@ dependencies:
   #auth-repository dependencies
   authentication_repository:
     path: packages/authentication_repository
+  #contact-repository dependencies
+  contacts_repository:
+    path: packages/contacts_repository
   #bloc dependencies
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1

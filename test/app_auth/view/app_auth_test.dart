@@ -2,11 +2,11 @@ import 'package:authentication_repository/authentication_repository_exports.dart
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/login/login_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/tabs/tab_views/chat_room/chat_room_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/login/login_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/chat_room/chat_room_exports.dart';
 
 class MockUser extends Mock implements User {}
 
@@ -34,10 +34,10 @@ void main() {
 
     testWidgets('renders AppAuthView', (tester) async {
       await tester.pumpWidget(
-        AppAuth(authenticationRepository: authenticationRepository),
+        ChatterboxApp(authenticationRepository: authenticationRepository),
       );
       await tester.pump();
-      expect(find.byType(AppAuthView), findsOneWidget);
+      expect(find.byType(ChatterboxAppView), findsOneWidget);
     });
   });
 
@@ -56,7 +56,7 @@ void main() {
         RepositoryProvider.value(
           value: authenticationRepository,
           child: MaterialApp(
-            home: BlocProvider.value(value: appAuthBloc, child: const AppAuthView()),
+            home: BlocProvider.value(value: appAuthBloc, child: const ChatterboxAppView()),
           ),
         ),
       );
@@ -72,7 +72,7 @@ void main() {
         RepositoryProvider.value(
           value: authenticationRepository,
           child: MaterialApp(
-            home: BlocProvider.value(value: appAuthBloc, child: const AppAuthView()),
+            home: BlocProvider.value(value: appAuthBloc, child: const ChatterboxAppView()),
           ),
         ),
       );
