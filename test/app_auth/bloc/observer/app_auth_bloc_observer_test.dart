@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/app_auth/app_auth_exports.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 
 class FakeBloc extends Fake implements Bloc<Object, Object> {}
 
