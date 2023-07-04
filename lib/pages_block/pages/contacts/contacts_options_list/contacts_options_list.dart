@@ -9,11 +9,7 @@ class ContactsOptionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => ContactsOptionsItemsRepository(
-          contactsOptionsItemsDataSource: ContactsOptionsItemsDataSource()
-      ),
-      child: BlocProvider<ContactsOptionsItemsBloc>(
+    return BlocProvider<ContactsOptionsItemsBloc>(
         create: (context) => ContactsOptionsItemsBloc(
           contactsOptionsRepository: RepositoryProvider.of<ContactsOptionsItemsRepository>(context),
         )..add(GetAllContactsOptionsItems()),
@@ -60,8 +56,8 @@ class ContactsOptionsList extends StatelessWidget {
               );
             }
         ),
-      ),
-    );
+      );
+
 
 
 
