@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/add_contact/cubit/add_contact_cubit.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/add_contact/view/add_contact_form.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/bloc/contacts_bloc.dart';
 
 class AddContactPage extends StatelessWidget {
   const AddContactPage({Key? key}) : super(key: key);
