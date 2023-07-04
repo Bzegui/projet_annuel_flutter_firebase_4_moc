@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:meta/meta.dart';
