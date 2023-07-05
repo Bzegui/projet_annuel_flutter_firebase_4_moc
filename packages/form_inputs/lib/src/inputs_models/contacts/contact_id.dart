@@ -3,7 +3,8 @@ import 'package:formz/formz.dart';
 /// Validation errors for the [ContactId] [FormzInput].
 enum ContactIdValidationError {
   /// Generic invalid error.
-  invalid
+  invalid,
+  empty
 }
 
 /// {@template contactId}
@@ -16,13 +17,13 @@ class ContactId extends FormzInput<String, ContactIdValidationError> {
   /// {@macro contactId}
   const ContactId.dirty([super.value = '']) : super.dirty();
 
-  static final RegExp _emailRegExp = RegExp(
-    r'^[a-zA-Z0-9]*$',
+  static final RegExp _contactIdRegExp = RegExp(
+      r'^[a-zA-Z0-9]{1,10}$'
   );
 
   @override
   ContactIdValidationError? validator(String? value) {
-    return _emailRegExp.hasMatch(value ?? '')
+    return _contactIdRegExp.hasMatch(value ?? '')
         ? null
         : ContactIdValidationError.invalid;
   }

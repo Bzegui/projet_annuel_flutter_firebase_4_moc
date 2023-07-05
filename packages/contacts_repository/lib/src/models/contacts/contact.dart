@@ -29,6 +29,16 @@ class Contact extends Equatable {
   /// contact photo URL.
   final String? photo;
 
+  /// map for getting contact object from firestore.
+  Map<String, dynamic> toMap() {
+    return {
+      'contactId': contactId,
+      'name': name,
+      'email': email,
+      'photo': photo
+    };
+  }
+
   /// contact factory for getting contacts list from Firestore.
   factory Contact.fromFirestore(Map<String, dynamic> map, String id) {
     return Contact(
