@@ -22,14 +22,26 @@ class AddContactForm extends StatelessWidget {
       },
       child: Align(
         alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            _ContactIdInput(),
-            _AddContactButton(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child:  SizedBox(
+                height: 47, width: 140,
+                child: _AddContactButton(),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child:  SizedBox(
+                height: 70, width: 200,
+                child: _ContactIdInput(),
+              ),
+            ),
           ],
-        ),
+        )
       ),
     );
   }
@@ -60,7 +72,6 @@ class _ContactIdInput extends StatelessWidget {
   }
 }
 
-
 class _AddContactButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,7 +90,7 @@ class _AddContactButton extends StatelessWidget {
                   onPressed: state.isValid
                       ? () => context.read<AddContactCubit>()
                       .addContactFormSubmitted() : null,
-                  child: const Text('ADD'),
+                  child: const Text('ADD CONTACT'),
           );
         }
     );
