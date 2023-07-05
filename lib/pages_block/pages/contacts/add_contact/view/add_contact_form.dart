@@ -51,7 +51,7 @@ class AddContactForm extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8, bottom: 5),
                   child:  SizedBox(
                     height: 70, width: 200,
                     child: _ContactIdInput(),
