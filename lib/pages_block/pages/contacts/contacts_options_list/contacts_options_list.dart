@@ -57,17 +57,5 @@ class ContactsOptionsList extends StatelessWidget {
             }
         ),
       );
-
-
-
-
-    /*return ListView(
-      padding: const EdgeInsets.only(left: 0, top: 17, bottom: 12),
-      shrinkWrap: true,
-      children: const <Widget>[
-        AddContactItem(),
-        AddGroupItem(),
-      ],
-    );*/
   }
 }
