@@ -12,8 +12,8 @@ class AddContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Column(
-            children: [
+          body: Container(
+            child:
               Container(
                 padding: const EdgeInsets.all(8),
                 child: BlocProvider<ContactsBloc>(
@@ -23,7 +23,7 @@ class AddContactPage extends StatelessWidget {
                   child: const AddContactForm(),
                 ),
               ),
-            ],
+
           )
       );
   }
