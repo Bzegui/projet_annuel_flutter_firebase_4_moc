@@ -5,9 +5,11 @@ class ContactItem extends StatelessWidget {
   const ContactItem({
     Key? key,
     required this.contact,
+    this.onTap,
   }) : super(key: key);
 
   final Contact contact;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class ContactItem extends StatelessWidget {
           color: Color(0xFFE0F2F1),
         ),
       ),
+      onTap: onTap,
     );
   }
 }
