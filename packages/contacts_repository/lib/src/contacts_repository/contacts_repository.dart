@@ -34,7 +34,7 @@ class ContactsRepository {
   /// Get contact with the provided [contactId].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<List<Contact>> getContactById({required String contactId}) {
-    return contactsDataSource.getContactById(contactId);
+  Stream<List<Contact>> getContactById({required String contactId}) {
+    return contactsDataSource.addContactById(contactId);
   }
 }
