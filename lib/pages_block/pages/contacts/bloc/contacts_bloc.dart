@@ -15,20 +15,18 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({
     required ContactsRepository contactsRepository,
   }) : _contactsRepository = contactsRepository, super(const ContactsState()) {
-    on<AddContactById>(_onAddContactById);
-    //on<GetAllContacts>(_getAllContacts);
+    on<GetContactById>(_onGetContactById);
   }
 
   final ContactsRepository _contactsRepository;
 
-  void _onAddContactById (
-    AddContactById event, Emitter<ContactsState> emit,
+  void _onGetContactById (
+    GetContactById event, Emitter<ContactsState> emit,
   ) async {
     final contactId = ContactId.dirty(event.contactId);
 
     emit(
       state.copyWith(
-        addContactStatus: FormzSubmissionStatus.inProgress,
         contactsStatus: ContactsStatus.fetchingContacts,
         contactId: contactId,
         isValid: Formz.validate([state.contactId]),
@@ -38,15 +36,17 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     try {
       emit(state.copyWith(contactsStatus: ContactsStatus.fetchingContacts));
 
-      final contactStream = _contactsRepository.getContactById(contactId: state.contactId.value);
+      final contactStream = _contactsRepository.getContactById(
+          contactId: state.contactId.value);
 
       await emit.forEach(contactStream, onData: (contacts) {
-        return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts, contacts: contacts);
+        return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts,
+            contacts: contacts);
       });
 
     } catch (error) {
-      emit(state.copyWith(contactsStatus: ContactsStatus.errorFetchingContacts));
-      debugPrint("$error");
+      emit(state.copyWith(contactsStatus:
+      ContactsStatus.errorFetchingContacts));
     }
   }
 }
