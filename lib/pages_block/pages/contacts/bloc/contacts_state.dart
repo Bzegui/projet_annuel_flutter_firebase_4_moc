@@ -8,7 +8,6 @@ enum ContactsStatus {
 }
 
 final class ContactsState extends Equatable {
-  final FormzSubmissionStatus addContactStatus;
   final ContactId contactId;
   final ContactsStatus contactsStatus;
   final bool isValid;
@@ -16,7 +15,6 @@ final class ContactsState extends Equatable {
   final String? errorMessage;
 
   const ContactsState({
-    this.addContactStatus = FormzSubmissionStatus.initial,
     this.contactId = const ContactId.pure(),
     this.contactsStatus = ContactsStatus.initial,
     this.isValid = false,
@@ -33,7 +31,6 @@ final class ContactsState extends Equatable {
     String? errorMessage,
   }) {
     return ContactsState(
-      addContactStatus: addContactStatus ?? this.addContactStatus,
       contactId: contactId ?? this.contactId,
       contactsStatus: contactsStatus ?? this.contactsStatus,
       isValid: isValid ?? this.isValid,
@@ -44,7 +41,6 @@ final class ContactsState extends Equatable {
 
   @override
   List<Object?> get props => [
-    addContactStatus,
     contactId,
     contactsStatus,
     isValid,
