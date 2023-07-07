@@ -14,6 +14,18 @@ class ContactItem extends StatelessWidget {
     return ListTile(
       title: Text(contact.contactId),
       subtitle: Text(contact.name),
+      leading: Container(
+        height: 41,
+        width: 41,
+        decoration: const BoxDecoration(
+          color: Colors.indigoAccent,
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(
+          Icons.photo_album,
+          color: Color(0xFFE0F2F1),
+        ),
+      ),
     );
   }
 }
