@@ -33,54 +33,49 @@ class _AddContactFormState extends State<AddContactForm> {
       },
       child: Align(
           alignment: const Alignment(0, -1 / 3),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child:  SizedBox(
-                  height: 60,
-                  child: Text(
-                      "Ajouter un contact",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      )
+          child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 60,
+                    child: Text(
+                        "Ajouter un contact",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        )
+                    ),
                   ),
-                  //
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 8, bottom: 5),
-                    child:  SizedBox(
+                    padding: const EdgeInsets.only(left: 5, bottom: 30),
+                    child: SizedBox(
                       height: 70, width: 200,
                       child: _ContactIdInput(),
                     ),
                   ),
-                ],
-              ),
-              const Divider(
-                color: Colors.grey,
-                height: 1,
-              ),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 1,
+                  ),
 
-              BlocBuilder<ContactsBloc, ContactsState>(
-                builder: (context, state) {
-                  switch (state.contactsStatus) {
-                    case ContactsStatus.fetchingContacts:
-                      return const Center(child: CircularProgressIndicator());
-                    case ContactsStatus.fetchedContacts:
-                      return _buildContactsList(context, state.contacts);
-                    default:
-                      return _buildContactsList(context, state.contacts);
-                  }
-                },
+                  BlocBuilder<ContactsBloc, ContactsState>(
+                    builder: (context, state) {
+                      switch (state.contactsStatus) {
+                        case ContactsStatus.fetchingContacts:
+                          return const SizedBox(
+                            height: 80,
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        case ContactsStatus.fetchedContacts:
+                          return _buildContactsList(context, state.contacts);
+                        default:
+                          return _buildContactsList(context, state.contacts);
+                      }
+                    },
+                  )
+                ],
               )
-            ],
           )
       ),
     );
@@ -88,7 +83,15 @@ class _AddContactFormState extends State<AddContactForm> {
 
   Widget _buildContactsList(BuildContext context, List<Contact> contacts) {
     if (contacts.isEmpty) {
-      return const Center(child: Text('No contacts'));
+      return const SizedBox(
+        height: 80,
+        child: Center(child: Text(
+          'Pas de contact disponible',
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        )),
+      );
     }
     return ListView.builder(
       shrinkWrap: true,
