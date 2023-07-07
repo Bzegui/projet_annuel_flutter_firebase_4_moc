@@ -19,35 +19,15 @@ class _AddContactFormState extends State<AddContactForm> {
     super.didChangeDependencies();
   }
 
- /* @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(25),
-      child: BlocBuilder<ContactsBloc, ContactsState>(
-        builder: (context, state) {
-          switch (state.contactsStatus) {
-            case ContactsStatus.fetchingContacts:
-              return const Center(child: CircularProgressIndicator());
-            case ContactsStatus.fetchedContacts:
-              return _buildContactsList(context, state.contacts);
-            default:
-              return _buildContactsList(context, state.contacts);
-          }
-        },
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<ContactsBloc, ContactsState>(
       listener: (context, state) {
-        if (state.addContactStatus.isSuccess) {
-        } else if (state.addContactStatus.isFailure) {
+        if (state.contactsStatus == ContactsStatus.errorFetchingContacts) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Failed adding contact')),
+              SnackBar(content: Text(state.errorMessage ?? 'Failed getting contact')),
             );
         }
       },
@@ -90,16 +70,6 @@ class _AddContactFormState extends State<AddContactForm> {
 
               BlocBuilder<ContactsBloc, ContactsState>(
                 builder: (context, state) {
-                  /*switch (state.addContactStatus) {
-                    case FormzSubmissionStatus.inProgress:
-                      return const Center(child: CircularProgressIndicator());
-                    case FormzSubmissionStatus.success:
-                      return _buildContactsList(context, state.contacts);
-                    case FormzSubmissionStatus.failure:
-
-                    default:
-                      return _buildContactsList(context, state.contacts);
-                  }*/
                   switch (state.contactsStatus) {
                     case ContactsStatus.fetchingContacts:
                       return const Center(child: CircularProgressIndicator());
@@ -133,7 +103,6 @@ class _AddContactFormState extends State<AddContactForm> {
   }
 }
 
-
 class _ContactIdInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -144,8 +113,7 @@ class _ContactIdInput extends StatelessWidget {
           return TextField(
             key: const Key('addContactForm_contactIdInput_textField'),
             onChanged: (contactId) => context.read<ContactsBloc>()
-                .add(AddContactById(contactId)), /*context.read<ContactsBloc>()
-                .add(GetAllContacts()),*/
+                .add(GetContactById(contactId)),
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: 'contactId',
