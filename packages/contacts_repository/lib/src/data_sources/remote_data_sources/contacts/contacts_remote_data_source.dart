@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import '../../../../contacts_repository_exports.dart';
 
 /// {@template contacts remote data source}
