@@ -1,7 +1,6 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/add_contact/view/add_contact_page.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/add_group/add_group_page.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contacts_exports.dart';
 
 const defaultContactsOptions = <ContactsOptionsItem> [
   ContactsOptionsItem(id: "1", icon: Icons.person_add, label: 'Nouveau contact', navDestination: AddContactPage()),

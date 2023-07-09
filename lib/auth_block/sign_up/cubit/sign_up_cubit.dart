@@ -11,6 +11,18 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   final AuthenticationRepository _authenticationRepository;
 
+  void nameChanged(String value) {
+    final name = Name.dirty(value);
+    emit(
+      state.copyWith(
+        name: name,
+        isValid: Formz.validate([
+          name,
+        ]),
+      ),
+    );
+  }
+
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(

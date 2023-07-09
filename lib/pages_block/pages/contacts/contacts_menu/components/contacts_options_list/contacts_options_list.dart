@@ -1,8 +1,9 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contacts_options_items/contacts_options_item.dart';
-import '../contacts_options_items/bloc/contacts_options_items_bloc.dart';
+import '../components_exports.dart';
+import '../contacts_options_item/bloc/contacts_options_items_bloc.dart';
+
 
 class ContactsOptionsList extends StatelessWidget {
   const ContactsOptionsList({Key? key}) : super(key: key);

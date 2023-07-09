@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
+import 'extensions/firebase_auth_user_extension.dart';
 
 /// {@template sign_up_with_email_and_password_failure}
 /// Thrown during the sign up process if a failure occurs.
@@ -157,11 +157,14 @@ class LogOutFailure implements Exception {}
 /// Repository which manages user authentication.
 /// {@endtemplate}
 class AuthenticationRepository {
+  UsersDataSource usersDataSource;
+
   /// {@macro authentication_repository}
   AuthenticationRepository({
     CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
+    required this.usersDataSource,
   })  : _cache = cache ?? CacheClient(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
@@ -208,11 +211,20 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
+
+
+      addUserToFirestore();
+
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
+  }
+
+  /// Send current user to Firestore.
+  Future<void> addUserToFirestore() {
+    return usersDataSource.addUserToFirestore();
   }
 
   /// Starts the Sign In with Google Flow.
@@ -280,9 +292,4 @@ class AuthenticationRepository {
   }
 }
 
-extension on firebase_auth.User {
-  /// Maps a [firebase_auth.User] into a [User].
-  User get toUser {
-    return User(id: uid, email: email, name: displayName, photo: photoURL);
-  }
-}
+

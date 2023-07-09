@@ -7,20 +7,20 @@ enum ContactsStatus {
   errorFetchingContacts
 }
 
-final class ContactsState extends Equatable {
-  final FormzSubmissionStatus addContactStatus;
+class ContactsState extends Equatable {
   final ContactId contactId;
   final ContactsStatus contactsStatus;
   final bool isValid;
-  final List<Contact> contacts;
+  final List<Contact> retrievedContacts;
+  final List<Contact> contactsItemsList;
   final String? errorMessage;
 
   const ContactsState({
-    this.addContactStatus = FormzSubmissionStatus.initial,
     this.contactId = const ContactId.pure(),
     this.contactsStatus = ContactsStatus.initial,
     this.isValid = false,
-    this.contacts = const <Contact>[],
+    this.retrievedContacts = const <Contact>[],
+    this.contactsItemsList = const <Contact>[],
     this.errorMessage,
   });
 
@@ -29,26 +29,27 @@ final class ContactsState extends Equatable {
     ContactId? contactId,
     ContactsStatus? contactsStatus,
     bool? isValid,
-    List<Contact>? contacts,
+    List<Contact>? retrievedContacts,
+    List<Contact>? contactsItemsList,
     String? errorMessage,
   }) {
     return ContactsState(
-      addContactStatus: addContactStatus ?? this.addContactStatus,
       contactId: contactId ?? this.contactId,
       contactsStatus: contactsStatus ?? this.contactsStatus,
       isValid: isValid ?? this.isValid,
-      contacts: contacts ?? this.contacts,
+      retrievedContacts: retrievedContacts ?? this.retrievedContacts,
+      contactsItemsList: contactsItemsList ?? this.contactsItemsList,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
   List<Object?> get props => [
-    addContactStatus,
     contactId,
     contactsStatus,
     isValid,
-    contacts,
+    retrievedContacts,
+    contactsItemsList,
     errorMessage
   ];
 }

@@ -15,20 +15,19 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({
     required ContactsRepository contactsRepository,
   }) : _contactsRepository = contactsRepository, super(const ContactsState()) {
-    on<AddContactById>(_onAddContactById);
-    //on<GetAllContacts>(_getAllContacts);
+    on<GetContactById>(_onGetContactById);
+    on<AddContactToContactItemsList>(_onAddContactToContactItemsList);
   }
 
   final ContactsRepository _contactsRepository;
 
-  void _onAddContactById (
-    AddContactById event, Emitter<ContactsState> emit,
-  ) async {
+  void _onGetContactById (
+      GetContactById event, Emitter<ContactsState> emit,
+      ) async {
     final contactId = ContactId.dirty(event.contactId);
 
     emit(
       state.copyWith(
-        addContactStatus: FormzSubmissionStatus.inProgress,
         contactsStatus: ContactsStatus.fetchingContacts,
         contactId: contactId,
         isValid: Formz.validate([state.contactId]),
@@ -36,17 +35,32 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     );
 
     try {
+      final contactStream = _contactsRepository.getContactById(
+          contactId: state.contactId.value);
+
       emit(state.copyWith(contactsStatus: ContactsStatus.fetchingContacts));
 
-      final contactStream = _contactsRepository.getContactById(contactId: state.contactId.value);
-
-      await emit.forEach(contactStream, onData: (contacts) {
-        return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts, contacts: contacts);
+      await emit.forEach(contactStream, onData: (retrievedContacts) {
+        return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts,
+            retrievedContacts: retrievedContacts);
       });
 
     } catch (error) {
-      emit(state.copyWith(contactsStatus: ContactsStatus.errorFetchingContacts));
-      debugPrint("$error");
+      emit(state.copyWith(contactsStatus:
+      ContactsStatus.errorFetchingContacts));
     }
+  }
+
+  void _onAddContactToContactItemsList(
+      AddContactToContactItemsList event,
+      Emitter<ContactsState> emit,
+      ) {
+    final updatedContactItemsList = [...state.contactsItemsList, event.contact];
+    final updatedContactItemsListState = state.copyWith(
+      contactsItemsList: updatedContactItemsList,
+      contactsStatus: ContactsStatus.fetchedContacts,
+    );
+
+    emit(updatedContactItemsListState);
   }
 }
