@@ -10,8 +10,8 @@ class Contact extends Equatable {
     required this.id,
     required this.contactId,
     required this.name,
-    this.email,
-    this.photo,
+    //this.email,
+    //this.photo,
   });
 
   /// The current contact's id.
@@ -24,10 +24,20 @@ class Contact extends Equatable {
   final String name;
 
   /// The current contact's email address.
-  final String? email;
+  //final String? email;
 
   /// contact photo URL.
-  final String? photo;
+  //final String? photo;
+
+  /// contact map for posting new contact object to Firestore.
+  Map<String, dynamic> toMap() {
+    return {
+      'contactId': contactId,
+      'name': name,
+      //'email': email,
+      //'photo': photo,
+    };
+  }
 
   /// contact factory for getting contacts list from Firestore.
   factory Contact.fromFirestore(Map<String, dynamic> map, String id) {
@@ -39,5 +49,5 @@ class Contact extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, contactId, name];
+  List<Object?> get props => [id, contactId, name,];
 }
