@@ -16,13 +16,14 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     required ContactsRepository contactsRepository,
   }) : _contactsRepository = contactsRepository, super(const ContactsState()) {
     on<GetContactById>(_onGetContactById);
+    on<AddContactToContactItemsList>(_onAddContactToContactItemsList);
   }
 
   final ContactsRepository _contactsRepository;
 
   void _onGetContactById (
-    GetContactById event, Emitter<ContactsState> emit,
-  ) async {
+      GetContactById event, Emitter<ContactsState> emit,
+      ) async {
     final contactId = ContactId.dirty(event.contactId);
 
     emit(
@@ -34,19 +35,32 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     );
 
     try {
-      emit(state.copyWith(contactsStatus: ContactsStatus.fetchingContacts));
-
       final contactStream = _contactsRepository.getContactById(
           contactId: state.contactId.value);
 
-      await emit.forEach(contactStream, onData: (contacts) {
+      emit(state.copyWith(contactsStatus: ContactsStatus.fetchingContacts));
+
+      await emit.forEach(contactStream, onData: (retrievedContacts) {
         return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts,
-            contacts: contacts);
+            retrievedContacts: retrievedContacts);
       });
 
     } catch (error) {
       emit(state.copyWith(contactsStatus:
       ContactsStatus.errorFetchingContacts));
     }
+  }
+
+  void _onAddContactToContactItemsList(
+      AddContactToContactItemsList event,
+      Emitter<ContactsState> emit,
+      ) {
+    final updatedContactItemsList = [...state.contactsItemsList, event.contact];
+    final updatedContactItemsListState = state.copyWith(
+      contactsItemsList: updatedContactItemsList,
+      contactsStatus: ContactsStatus.fetchedContacts,
+    );
+
+    emit(updatedContactItemsListState);
   }
 }
