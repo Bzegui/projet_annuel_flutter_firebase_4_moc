@@ -14,7 +14,8 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  final authenticationRepository = AuthenticationRepository();
+  final usersDataSource = UsersDataSource();
+  final authenticationRepository = AuthenticationRepository(usersDataSource: usersDataSource);
   await authenticationRepository.user.first;
 
   runApp(ChatterboxApp(authenticationRepository: authenticationRepository));
