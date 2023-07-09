@@ -1,5 +1,8 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/contacts_bloc.dart';
 
 class ContactItem extends StatelessWidget {
   const ContactItem({
@@ -28,7 +31,10 @@ class ContactItem extends StatelessWidget {
           color: Color(0xFFE0F2F1),
         ),
       ),
-      onTap: onTap,
+      onTap: () {
+        final contactsBloc = BlocProvider.of<ContactsBloc>(context);
+        contactsBloc.add(AddContactToContactItemsList(contact));
+      },
     );
   }
 }

@@ -1,10 +1,8 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/bloc/contacts_bloc.dart';
-
-import '../../contact_item/contact_item.dart';
+import '../../components/components_exports.dart';
 
 class AddContactForm extends StatefulWidget {
   const AddContactForm({Key? key}) : super(key: key);
@@ -48,7 +46,7 @@ class _AddContactFormState extends State<AddContactForm> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, bottom: 30),
+                    padding: const EdgeInsets.only(bottom: 30),
                     child: SizedBox(
                       height: 70, width: 200,
                       child: _ContactIdInput(),
@@ -68,9 +66,9 @@ class _AddContactFormState extends State<AddContactForm> {
                             child: Center(child: CircularProgressIndicator()),
                           );
                         case ContactsStatus.fetchedContacts:
-                          return _buildContactsList(context, state.contacts);
+                          return _buildContactsList(context, state.retrievedContacts);
                         default:
-                          return _buildContactsList(context, state.contacts);
+                          return _buildContactsList(context, state.retrievedContacts);
                       }
                     },
                   )
