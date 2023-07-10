@@ -1,7 +1,7 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 
 class ContactsOptionsItemsRepository {
-  final ContactsOptionsItemsDataSource contactsOptionsItemsDataSource;
+  final ContactsOptionsItemsLocalDataSource contactsOptionsItemsDataSource;
 
   ContactsOptionsItemsRepository({
     required this.contactsOptionsItemsDataSource
