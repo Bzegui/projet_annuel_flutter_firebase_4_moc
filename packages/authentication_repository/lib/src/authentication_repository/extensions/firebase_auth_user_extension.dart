@@ -6,6 +6,7 @@ extension FirebaseAuthUserExtension on firebase_auth.User {
   User get toUser {
     String shortUID = uid.substring(0, 10);
 
-    return User(id: uid, email: email, contactId: shortUID, name: displayName, photo: photoURL);
+    return User(id: uid, email: email, contactId: shortUID, name: displayName,
+        photo: photoURL);
   }
 }

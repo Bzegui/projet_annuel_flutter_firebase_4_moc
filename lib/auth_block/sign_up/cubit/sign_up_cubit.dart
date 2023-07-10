@@ -18,6 +18,9 @@ class SignUpCubit extends Cubit<SignUpState> {
         name: name,
         isValid: Formz.validate([
           name,
+          state.email,
+          state.password,
+          state.confirmedPassword,
         ]),
       ),
     );
@@ -29,6 +32,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         email: email,
         isValid: Formz.validate([
+          state.name,
           email,
           state.password,
           state.confirmedPassword,
@@ -48,6 +52,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
         confirmedPassword: confirmedPassword,
         isValid: Formz.validate([
+          state.name,
           state.email,
           password,
           confirmedPassword,
@@ -65,6 +70,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         confirmedPassword: confirmedPassword,
         isValid: Formz.validate([
+          state.name,
           state.email,
           state.password,
           confirmedPassword,
@@ -80,8 +86,13 @@ class SignUpCubit extends Cubit<SignUpState> {
       await _authenticationRepository.signUp(
         email: state.email.value,
         password: state.password.value,
+        name: state.name.value,
       );
+
+      await _authenticationRepository.addUserToFirestore();
+
       emit(state.copyWith(status: FormzSubmissionStatus.success));
+
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(
         state.copyWith(
