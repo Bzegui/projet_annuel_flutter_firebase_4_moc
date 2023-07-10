@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -157,11 +156,14 @@ class LogOutFailure implements Exception {}
 /// Repository which manages user authentication.
 /// {@endtemplate}
 class AuthenticationRepository {
+  UsersDataSource usersDataSource;
+
   /// {@macro authentication_repository}
   AuthenticationRepository({
     CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
+    required this.usersDataSource,
   })  : _cache = cache ?? CacheClient(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
@@ -202,17 +204,26 @@ class AuthenticationRepository {
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({required String name, required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      final user = _firebaseAuth.currentUser;
+      user?.updateDisplayName(name);
+
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
+  }
+
+  /// Send current user to Firestore.
+  Future<void> addUserToFirestore() {
+    return usersDataSource.addUserToFirestore();
   }
 
   /// Starts the Sign In with Google Flow.
@@ -280,9 +291,4 @@ class AuthenticationRepository {
   }
 }
 
-extension on firebase_auth.User {
-  /// Maps a [firebase_auth.User] into a [User].
-  User get toUser {
-    return User(id: uid, email: email, name: displayName, photo: photoURL);
-  }
-}
+

@@ -9,6 +9,7 @@ class User extends Equatable {
   /// {@macro user}
   const User({
     required this.id,
+    this.contactId,
     this.email,
     this.name,
     this.photo,
@@ -19,6 +20,9 @@ class User extends Equatable {
 
   /// The current user's id.
   final String id;
+
+  /// The current user's contactId.
+  final String? contactId;
 
   /// The current user's name (display name).
   final String? name;
@@ -36,6 +40,6 @@ class User extends Equatable {
   bool get isNotEmpty => this != User.empty;
 
   @override
-  List<Object?> get props => [email, id, name, photo];
+  List<Object?> get props => [email, id, contactId, name, photo];
 }
 
