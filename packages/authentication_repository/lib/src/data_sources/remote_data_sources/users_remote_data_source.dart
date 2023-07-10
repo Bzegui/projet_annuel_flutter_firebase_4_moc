@@ -19,12 +19,12 @@ final class UsersDataSource extends UsersRemoteDataSource {
   }) :  _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
   final CollectionReference _usersCollection = FirebaseFirestore.instance.collection('users');
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final _firebaseAuth;
 
   /// Creates a new user in [_usersCollection].
   Future<void> addUserToFirestore() async {
     try {
-      final currentUser = _firebaseAuth.currentUser;
+      final currentUser = getCurrentUser();
 
       if(currentUser != null) {
         final userDoc = _usersCollection.doc(currentUser.uid);
