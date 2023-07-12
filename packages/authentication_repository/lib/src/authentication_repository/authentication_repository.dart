@@ -212,8 +212,7 @@ class AuthenticationRepository {
       );
 
       final user = userCreationWithEmailAndPassword.user;
-
-      user?.updateDisplayName(name);
+      await user?.updateDisplayName(name);
 
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
