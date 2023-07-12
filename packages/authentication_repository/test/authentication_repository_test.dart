@@ -36,6 +36,8 @@ class FakeAuthCredential extends Fake implements firebase_auth.AuthCredential {}
 
 class FakeAuthProvider extends Fake implements AuthProvider {}
 
+class MockUsersDataSource extends Mock implements UsersDataSource {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,6 +53,7 @@ void main() {
     late firebase_auth.FirebaseAuth firebaseAuth;
     late GoogleSignIn googleSignIn;
     late AuthenticationRepository authenticationRepository;
+    late UsersDataSource usersDataSource;
 
     setUpAll(() {
       registerFallbackValue(FakeAuthCredential());
@@ -81,10 +84,12 @@ void main() {
       cache = MockCacheClient();
       firebaseAuth = MockFirebaseAuth();
       googleSignIn = MockGoogleSignIn();
+      usersDataSource = UsersDataSource();
       authenticationRepository = AuthenticationRepository(
         cache: cache,
         firebaseAuth: firebaseAuth,
         googleSignIn: googleSignIn,
+        usersDataSource: usersDataSource,
       );
     });
 
