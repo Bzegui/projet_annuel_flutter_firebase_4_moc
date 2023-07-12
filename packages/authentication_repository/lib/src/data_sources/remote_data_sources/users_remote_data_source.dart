@@ -11,15 +11,23 @@ import '../../models/user.dart';
 
 @immutable
 sealed class UsersRemoteDataSource {}
+sealed class UsersRemoteDataSourceFailure implements Exception {}
+
+final class UsersRemoteDataSourceAddUserToFirestoreFailure extends
+UsersRemoteDataSourceFailure {
+  /// {@macro users_remote_data_source_add_user_to_firestore_failure}
+  UsersRemoteDataSourceAddUserToFirestoreFailure([
+    this.message = 'can\'t retrieve associated user',
+  ]);
+
+  /// The associated error message.
+  final String message;
+}
 
 final class UsersDataSource extends UsersRemoteDataSource {
 
-  UsersDataSource({
-    firebase_auth.FirebaseAuth? firebaseAuth,
-  }) :  _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
-
-  final CollectionReference _usersCollection = FirebaseFirestore.instance.collection('users');
-  final _firebaseAuth;
+  final CollectionReference _usersCollection = FirebaseFirestore.
+  instance.collection('users');
 
   /// Creates a new user in [_usersCollection].
   Future<void> addUserToFirestore() async {
@@ -37,9 +45,8 @@ final class UsersDataSource extends UsersRemoteDataSource {
           'email': user.email,
         });
 
-        debugPrint("user successfully added");
       } else {
-        debugPrint("Aucun utilisateur actuellement connecté");
+        throw UsersRemoteDataSourceAddUserToFirestoreFailure;
       }
 
     } catch (e) {
