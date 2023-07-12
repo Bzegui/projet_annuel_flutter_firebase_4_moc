@@ -9,11 +9,4 @@ extension FirebaseAuthUserExtension on firebase_auth.User {
     return User(id: uid, email: email, contactId: shortUID, name: displayName,
         photo: photoURL);
   }
-
-  Future<void> updateDisplayName(firebase_auth.User? user) async {
-    if (user != null) {
-      // once we get user object then update user display name using following method
-      await user.updateDisplayName(user.displayName);
-    }
-  }
 }
