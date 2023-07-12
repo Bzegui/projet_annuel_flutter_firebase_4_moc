@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
@@ -206,14 +207,17 @@ class AuthenticationRepository {
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
   Future<void> signUp({required String name, required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      final userCreationWithEmailAndPassword = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      final user = _firebaseAuth.currentUser;
-      user?.updateDisplayName(name);
+      final user = userCreationWithEmailAndPassword.user;
 
+      if (user != null) {
+        // once we get user object then update user display name using following method
+        await user.updateDisplayName(name);
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
