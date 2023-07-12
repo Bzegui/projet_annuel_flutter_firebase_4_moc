@@ -24,7 +24,7 @@ UsersRemoteDataSourceFailure {
   final String message;
 }
 
-final class UsersDataSource extends UsersRemoteDataSource {
+class UsersDataSource extends UsersRemoteDataSource {
 
   final CollectionReference _usersCollection = FirebaseFirestore.
   instance.collection('users');
