@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:users/users_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
@@ -156,14 +156,14 @@ class LogOutFailure implements Exception {}
 /// Repository which manages user authentication.
 /// {@endtemplate}
 class AuthenticationRepository {
-  UsersDataSource usersDataSource;
+  UsersRemoteDataSource usersRemoteDataSource;
 
   /// {@macro authentication_repository}
   AuthenticationRepository({
     CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
-    required this.usersDataSource,
+    required this.usersRemoteDataSource,
   })  : _cache = cache ?? CacheClient(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
@@ -223,7 +223,7 @@ class AuthenticationRepository {
 
   /// Send current user to Firestore.
   Future<void> addUserToFirestore() {
-    return usersDataSource.addUserToFirestore();
+    return usersRemoteDataSource.addUserToFirestore();
   }
 
   /// Starts the Sign In with Google Flow.
