@@ -1,4 +1,4 @@
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:users/users_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/login/login_exports.dart';

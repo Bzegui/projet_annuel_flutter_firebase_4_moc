@@ -1,4 +1,4 @@
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:users/users_exports.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs_exports.dart';
