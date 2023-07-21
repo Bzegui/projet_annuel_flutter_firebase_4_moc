@@ -8,9 +8,9 @@ sealed class ContactsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetContactById extends ContactsEvent {
+class GetContactUserById extends ContactsEvent {
 
-  const GetContactById(this.contactId);
+  const GetContactUserById(this.contactId);
 
   final String contactId;
 
@@ -18,13 +18,13 @@ class GetContactById extends ContactsEvent {
   List<Object> get props => [contactId];
 }
 
-class AddContactToContactItemsList extends ContactsEvent {
-  final Contact contact;
+class AddContactUserToContactUserItemsList extends ContactsEvent {
+  final User user;
 
-  const AddContactToContactItemsList(this.contact);
+  const AddContactUserToContactUserItemsList(this.user);
 
   @override
-  List<Object> get props => [contact];
+  List<Object> get props => [user];
 }
 
 

@@ -11,16 +11,16 @@ class ContactsState extends Equatable {
   final ContactId contactId;
   final ContactsStatus contactsStatus;
   final bool isValid;
-  final List<Contact> retrievedContacts;
-  final List<Contact> contactsItemsList;
+  final List<User> retrievedContactUsers;
+  final List<User> contactUserItemsList;
   final String? errorMessage;
 
   const ContactsState({
     this.contactId = const ContactId.pure(),
     this.contactsStatus = ContactsStatus.initial,
     this.isValid = false,
-    this.retrievedContacts = const <Contact>[],
-    this.contactsItemsList = const <Contact>[],
+    this.retrievedContactUsers = const <User>[],
+    this.contactUserItemsList = const <User>[],
     this.errorMessage,
   });
 
@@ -29,16 +29,16 @@ class ContactsState extends Equatable {
     ContactId? contactId,
     ContactsStatus? contactsStatus,
     bool? isValid,
-    List<Contact>? retrievedContacts,
-    List<Contact>? contactsItemsList,
+    List<User>? retrievedContactUsers,
+    List<User>? contactUserItemsList,
     String? errorMessage,
   }) {
     return ContactsState(
       contactId: contactId ?? this.contactId,
       contactsStatus: contactsStatus ?? this.contactsStatus,
       isValid: isValid ?? this.isValid,
-      retrievedContacts: retrievedContacts ?? this.retrievedContacts,
-      contactsItemsList: contactsItemsList ?? this.contactsItemsList,
+      retrievedContactUsers: retrievedContactUsers ?? this.retrievedContactUsers,
+      contactUserItemsList: contactUserItemsList ?? this.contactUserItemsList,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -48,8 +48,8 @@ class ContactsState extends Equatable {
     contactId,
     contactsStatus,
     isValid,
-    retrievedContacts,
-    contactsItemsList,
+    retrievedContactUsers,
+    contactUserItemsList,
     errorMessage
   ];
 }
