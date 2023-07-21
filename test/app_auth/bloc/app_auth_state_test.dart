@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:authentication_repository/users_exports.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';

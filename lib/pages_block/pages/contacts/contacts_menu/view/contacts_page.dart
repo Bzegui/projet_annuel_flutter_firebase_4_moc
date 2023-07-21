@@ -1,6 +1,7 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users/users_exports.dart';
 import '../../bloc/contacts_bloc.dart';
 import '../components/components_exports.dart';
 
@@ -22,7 +23,7 @@ class ContactsPage extends StatelessWidget {
               contactsOptionsItemsDataSource: ContactsOptionsItemsLocalDataSource()),
               child: BlocProvider<ContactsBloc>(
                   create: (context) => ContactsBloc(
-                      contactsRepository: context.read<ContactsRepository>()
+                      usersRepository: context.read<UsersRepository>()
                   ),
                 child: Builder(
                     builder: (context) {

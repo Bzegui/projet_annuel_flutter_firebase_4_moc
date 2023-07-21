@@ -39,6 +39,15 @@ class User extends Equatable {
   /// Convenience getter to determine whether the current user is not empty.
   bool get isNotEmpty => this != User.empty;
 
+  /// contact factory for getting contacts list from Firestore.
+  factory User.fromFirestore(Map<String, dynamic> map, String id) {
+    return User(
+      id: id,
+      contactId: map['contactId'],
+      name: map['name'],
+    );
+  }
+
   @override
   List<Object?> get props => [email, id, contactId, name, photo];
 }
