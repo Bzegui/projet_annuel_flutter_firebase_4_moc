@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/contact_option_item.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
 
 class ContactsPage extends StatelessWidget {

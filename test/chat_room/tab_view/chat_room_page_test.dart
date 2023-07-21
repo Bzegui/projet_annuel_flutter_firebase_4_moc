@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
-import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/chat_room/chat_room_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs_navigation_block/tabs/tab_views/chat_room/chat_room_page.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/tabs_navigation_block/tabs/tab_views/chat_room/widgets/avatar.dart';
+//import 'package:projet_annuel_flutter_firebase_4_moc/navigation_tabs_block/tabs/tab_views/chat_room/chat_room_exports.dart';
 
 class MockAppAuthBloc extends MockBloc<AppAuthEvent, AppAuthState> implements AppAuthBloc {}
 

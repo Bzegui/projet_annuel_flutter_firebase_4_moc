@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.esgi.flutter.firebase.projet_annuel.projet_annuel_flutter_firebase_4_moc">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
    <application
         android:label="projet_annuel_flutter_firebase_4_moc"
         android:name="${applicationName}"
