@@ -4,6 +4,7 @@ import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/login/login_expo
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/sign_up/sign_up_exports.dart';
+import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -101,7 +102,7 @@ class _LoginButton extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         return state.status.isInProgress
-            ? const CircularProgressIndicator()
+            ? const CircularProgressIndicator(color: Colors.indigoAccent,)
             : ElevatedButton(
           key: const Key('loginForm_continue_raisedButton'),
           style: ElevatedButton.styleFrom(
