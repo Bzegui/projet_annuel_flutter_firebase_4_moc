@@ -61,6 +61,7 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker: ^0.8.4+4
+  firebase_storage: ^11.2.5
 
 dev_dependencies:
   #bloc dev-dependencies

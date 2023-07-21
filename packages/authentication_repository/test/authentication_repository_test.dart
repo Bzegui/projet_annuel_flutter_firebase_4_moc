@@ -43,7 +43,7 @@ void main() {
   const password = 't0ps3cret42';
   const user = User(
     id: _mockFirebaseUserUid,
-    email: _mockFirebaseUserEmail,
+    email: _mockFirebaseUserEmail, unique_identifier: '',
   );
 
   group('AuthenticationRepository', () {
