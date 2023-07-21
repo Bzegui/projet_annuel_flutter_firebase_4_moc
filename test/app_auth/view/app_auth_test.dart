@@ -1,4 +1,4 @@
-import 'package:authentication_repository/users_exports.dart';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/login/login_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/tabs_navigation_block/tabs/tab_views/chat_room/chat_room_exports.dart';
+import 'package:users/users_exports.dart';
 
 class MockUser extends Mock implements User {}
 
