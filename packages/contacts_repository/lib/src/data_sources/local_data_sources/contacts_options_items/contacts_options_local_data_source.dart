@@ -8,9 +8,9 @@ const defaultContactsOptions = <ContactsOptionsItem> [
 ];
 
 @immutable
-sealed class ContactsLocalDataSource {}
+sealed class ContactsOptionsLocalDataSource {}
 
-final class ContactsOptionsItemsLocalDataSource extends ContactsLocalDataSource {
+final class ContactsOptionsItemsLocalDataSource extends ContactsOptionsLocalDataSource {
   Future<List<ContactsOptionsItem>> getContactsOptions() {
     debugPrint('Getting contacts options from local data source');
     return Future.value(defaultContactsOptions);
