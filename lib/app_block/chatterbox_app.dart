@@ -1,5 +1,4 @@
-import 'package:authentication_repository/authentication_repository_exports.dart';
-import 'package:contacts_repository/contacts_repository_exports.dart';
+import 'package:users/users_exports.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +19,9 @@ class ChatterboxApp extends StatelessWidget {
         RepositoryProvider<AuthenticationRepository>(
           create: (context) => _authenticationRepository,
         ),
-        RepositoryProvider(
-          create: (context) => ContactsRepository(
-              contactsDataSource: ContactsDataSource()
+        RepositoryProvider<UsersRepository>(
+          create: (context) => UsersRepository(
+              usersRemoteDataSource: UsersRemoteDataSource()
           ),
         ),
       ],
