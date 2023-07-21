@@ -1,4 +1,4 @@
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:authentication_repository/users_exports.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

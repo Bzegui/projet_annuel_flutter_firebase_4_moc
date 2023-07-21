@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:authentication_repository/users_exports.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
