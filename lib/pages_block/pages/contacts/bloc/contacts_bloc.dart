@@ -1,28 +1,26 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:form_inputs/form_inputs_exports.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
+import 'package:users/users_exports.dart';
 
 part 'contacts_event.dart';
 part 'contacts_state.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({
-    required ContactsRepository contactsRepository,
-  }) : _contactsRepository = contactsRepository, super(const ContactsState()) {
-    on<GetContactById>(_onGetContactById);
-    on<AddContactToContactItemsList>(_onAddContactToContactItemsList);
+    required UsersRepository usersRepository,
+  }) : _usersRepository = usersRepository, super(const ContactsState()) {
+    on<GetContactUserById>(_onGetContactUserById);
+    on<AddContactUserToContactUserItemsList>(_onAddContactUserToContactUserItemsList);
   }
 
-  final ContactsRepository _contactsRepository;
+  final UsersRepository _usersRepository;
 
-  void _onGetContactById (
-      GetContactById event, Emitter<ContactsState> emit,
+  void _onGetContactUserById (
+      GetContactUserById event, Emitter<ContactsState> emit,
       ) async {
     final contactId = ContactId.dirty(event.contactId);
 
@@ -35,14 +33,14 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     );
 
     try {
-      final contactStream = _contactsRepository.getContactById(
+      final contactStream = _usersRepository.getContactUserById(
           contactId: state.contactId.value);
 
       emit(state.copyWith(contactsStatus: ContactsStatus.fetchingContacts));
 
-      await emit.forEach(contactStream, onData: (retrievedContacts) {
+      await emit.forEach(contactStream, onData: (retrievedContactUsers) {
         return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts,
-            retrievedContacts: retrievedContacts);
+            retrievedContactUsers: retrievedContactUsers);
       });
 
     } catch (error) {
@@ -51,16 +49,16 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     }
   }
 
-  void _onAddContactToContactItemsList(
-      AddContactToContactItemsList event,
+  void _onAddContactUserToContactUserItemsList(
+      AddContactUserToContactUserItemsList event,
       Emitter<ContactsState> emit,
       ) {
-    final updatedContactItemsList = [...state.contactsItemsList, event.contact];
-    final updatedContactItemsListState = state.copyWith(
-      contactsItemsList: updatedContactItemsList,
+    final updatedContactUserItemsList = [...state.contactUserItemsList, event.user];
+    final updatedContactUserItemsListState = state.copyWith(
+      contactUserItemsList: updatedContactUserItemsList,
       contactsStatus: ContactsStatus.fetchedContacts,
     );
 
-    emit(updatedContactItemsListState);
+    emit(updatedContactUserItemsListState);
   }
 }

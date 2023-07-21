@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-import 'package:authentication_repository/authentication_repository_exports.dart';
+import 'package:users/users_exports.dart';
 import 'package:cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
@@ -36,6 +36,8 @@ class FakeAuthCredential extends Fake implements firebase_auth.AuthCredential {}
 
 class FakeAuthProvider extends Fake implements AuthProvider {}
 
+class MockUsersDataSource extends Mock implements UsersRemoteDataSource {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,6 +53,7 @@ void main() {
     late firebase_auth.FirebaseAuth firebaseAuth;
     late GoogleSignIn googleSignIn;
     late AuthenticationRepository authenticationRepository;
+    late UsersRemoteDataSource usersRemoteDataSource;
 
     setUpAll(() {
       registerFallbackValue(FakeAuthCredential());
@@ -81,10 +84,12 @@ void main() {
       cache = MockCacheClient();
       firebaseAuth = MockFirebaseAuth();
       googleSignIn = MockGoogleSignIn();
+      usersRemoteDataSource = UsersRemoteDataSource();
       authenticationRepository = AuthenticationRepository(
         cache: cache,
         firebaseAuth: firebaseAuth,
         googleSignIn: googleSignIn,
+        usersRemoteDataSource: usersRemoteDataSource,
       );
     });
 

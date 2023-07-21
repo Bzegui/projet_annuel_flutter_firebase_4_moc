@@ -2,6 +2,7 @@ import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/bloc/contacts_bloc.dart';
+import 'package:users/users_exports.dart';
 import '../../components/components_exports.dart';
 
 class AddContactForm extends StatefulWidget {
@@ -66,9 +67,9 @@ class _AddContactFormState extends State<AddContactForm> {
                             child: Center(child: CircularProgressIndicator()),
                           );
                         case ContactsStatus.fetchedContacts:
-                          return _buildContactsList(context, state.retrievedContacts);
+                          return _buildContactUsersList(context, state.retrievedContactUsers);
                         default:
-                          return _buildContactsList(context, state.retrievedContacts);
+                          return _buildContactUsersList(context, state.retrievedContactUsers);
                       }
                     },
                   )
@@ -79,8 +80,8 @@ class _AddContactFormState extends State<AddContactForm> {
     );
   }
 
-  Widget _buildContactsList(BuildContext context, List<Contact> contacts) {
-    if (contacts.isEmpty) {
+  Widget _buildContactUsersList(BuildContext context, List<User> users) {
+    if (users.isEmpty) {
       return const SizedBox(
         height: 80,
         child: Center(child: Text(
@@ -93,11 +94,11 @@ class _AddContactFormState extends State<AddContactForm> {
     }
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: contacts.length,
+      itemCount: users.length,
       itemBuilder: (context, index) {
-        final contact = contacts[index];
-        return ContactItem(
-          contact: contact,
+        final user = users[index];
+        return ContactUserItem(
+          user: user,
         );
       },
     );
@@ -114,7 +115,7 @@ class _ContactIdInput extends StatelessWidget {
           return TextField(
             key: const Key('addContactForm_contactIdInput_textField'),
             onChanged: (contactId) => context.read<ContactsBloc>()
-                .add(GetContactById(contactId)),
+                .add(GetContactUserById(contactId)),
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: 'contactId',

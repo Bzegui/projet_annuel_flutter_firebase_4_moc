@@ -1,5 +1,5 @@
-name: authentication_repository
-description: Dart package which manages the authentication domain.
+name: users
+description: Dart package which manages the users authentication and management domains.
 version: 1.0.0
 publish_to: none
 
