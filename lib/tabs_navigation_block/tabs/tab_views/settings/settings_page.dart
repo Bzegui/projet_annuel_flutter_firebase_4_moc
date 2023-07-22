@@ -5,21 +5,33 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:users/users_exports.dart';
-import 'UserRepository.dart';
 import 'settings_bloc/settings_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final User currentUser;
 
-  static Page<void> page() => const MaterialPage<void>(child: SettingsPage());
+  const SettingsPage({Key? key, required this.currentUser}) : super(key: key);
+
+  static Page<void> page(User currentUser) => MaterialPage<void>(
+    child: SettingsPage(currentUser: currentUser),
+  );
 
   @override
   Widget build(BuildContext context) {
-    final userRepository = UserRepository();
+    final TextEditingController firstNameController =
+    TextEditingController(text: currentUser.firstName);
+    final TextEditingController lastNameController =
+    TextEditingController(text: currentUser.name);
+    final TextEditingController birthDateController =
+    TextEditingController(text: currentUser.birthDate);
+
+    UsersRemoteDataSource usersRemoteDataSource = UsersRemoteDataSource();
+    final userRepository =
+    UsersRepository(usersRemoteDataSource: usersRemoteDataSource);
     final settingsBloc = SettingsBloc(userRepository);
 
-    return BlocProvider(
-      create: (context) => settingsBloc,
+    return BlocProvider.value(
+      value: settingsBloc,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
@@ -37,6 +49,7 @@ class SettingsPage extends StatelessWidget {
                   decoration: const InputDecoration(
                     labelText: 'First Name',
                   ),
+                  controller: firstNameController,
                 ),
               ),
               Padding(
@@ -45,6 +58,7 @@ class SettingsPage extends StatelessWidget {
                   decoration: const InputDecoration(
                     labelText: 'Last Name',
                   ),
+                  controller: lastNameController,
                 ),
               ),
               Padding(
@@ -53,28 +67,33 @@ class SettingsPage extends StatelessWidget {
                   decoration: const InputDecoration(
                     labelText: 'Date of Birth',
                   ),
+                  controller: birthDateController,
                 ),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
+                  final firstName = firstNameController.text;
+                  final lastName = lastNameController.text;
+                  final birthDate = birthDateController.text;
                   final settingsBloc = context.read<SettingsBloc>();
-                  settingsBloc.add(SaveSettingsEvent(
-                    const User(
-                      firstName: "John",
-                      name: "Doe",
-                      birthDate: "2000-01-01",
-                      photo: '',
-                      id: '',
-                    ),null
-                  ),
+                  settingsBloc.add(
+                    SaveSettingsEvent(
+                      User(
+                        firstName: firstName,
+                        name: lastName,
+                        birthDate: birthDate,
+                        photo: '',
+                        id: '',
+                      ),
+                      null,
+                    ),
                   );
                 },
                 child: const Text('Save'),
               ),
               BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
-
                   if (state == SettingsState.success) {
                     return const Text('Save successful');
                   } else if (state == SettingsState.error) {
@@ -114,9 +133,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('profile_images')
-          .child('${DateTime
-          .now()
-          .millisecondsSinceEpoch}.jpg');
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
       final uploadTask = storageRef.putFile(_imageFile!);
       final snapshot = await uploadTask.whenComplete(() {});
       final downloadUrl = await snapshot.ref.getDownloadURL();
@@ -132,15 +149,16 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-
         Align(
           alignment: Alignment.center, // Center the child within the column
           child: GestureDetector(
             onTap: _pickImage,
             child: CircleAvatar(
               radius: 40,
-              backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
-              child: _imageFile == null ? const Icon(Icons.person, size: 40) : null,
+              backgroundImage:
+              _imageFile != null ? FileImage(_imageFile!) : null,
+              child:
+              _imageFile == null ? const Icon(Icons.person, size: 40) : null,
             ),
           ),
         ),
@@ -155,5 +173,4 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       ],
     );
   }
-
 }

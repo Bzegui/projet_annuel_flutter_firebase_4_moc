@@ -8,4 +8,6 @@ class SaveSettingsEvent extends SettingsEvent {
   final File? imageFile;
 
   SaveSettingsEvent(this.user, this.imageFile);
+
+  List<Object?> get props => [user, imageFile];
 }

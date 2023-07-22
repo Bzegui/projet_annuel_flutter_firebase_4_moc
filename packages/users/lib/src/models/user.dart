@@ -51,6 +51,10 @@ class User extends Equatable {
       id: id,
       contactId: map['contactId'],
       name: map['name'],
+      email: map['email'],
+      firstName: map['firstName'],
+      birthDate: map['birthDate'],
+      photo: map['photo'],
     );
   }
 

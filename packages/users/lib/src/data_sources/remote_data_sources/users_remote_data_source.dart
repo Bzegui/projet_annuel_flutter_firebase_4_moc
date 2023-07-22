@@ -40,6 +40,8 @@ class UsersRemoteDataSource extends UsersDataSource {
           'name' : user.name,
           'contactId': user.contactId,
           'email': user.email,
+          'birthDate': user.birthDate,
+          'photo': user.photo
         });
 
       } else {
