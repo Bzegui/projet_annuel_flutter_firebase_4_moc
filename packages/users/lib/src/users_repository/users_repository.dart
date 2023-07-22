@@ -1,4 +1,6 @@
+
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -23,24 +25,26 @@ class UsersRepository {
 
   Future<String> saveUserProfile(User user, File? imageFile) async {
     try {
+      //print('up date users infos################');
+      final userDocument = _firestore.collection('users').doc(user.id);
 
-      final userDocument = _firestore.collection('users').doc();
       await userDocument.update({
         'name': user.name,
         'first_name': user.firstName,
         'birthDate': user.birthDate,
-        'photo' : user.photo
+        'photo' : 'test'
       });
-
-      if (imageFile != null) {
+      //print('up date users infos################');
+      /*if (imageFile != null) {
         final imageRef = _firebaseStorage.ref().child('profile_images').child(userDocument.id);
         final uploadTask = imageRef.putFile(imageFile);
         await uploadTask.whenComplete(() {});
         final downloadURL = await imageRef.getDownloadURL();
         await userDocument.update({'profile_image_url': downloadURL});
-      }
+      }*/
       return 'success';
     } catch (e) {
+      print('Error in saveUserProfile: $e');
       return 'error';
     }
   }

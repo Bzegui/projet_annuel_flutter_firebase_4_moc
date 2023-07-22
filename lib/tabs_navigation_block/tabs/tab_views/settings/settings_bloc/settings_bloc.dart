@@ -15,13 +15,20 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   void _onSaveSettingsEvent(SaveSettingsEvent event, Emitter<SettingsState> emit) async {
+    print('Saving user profile...');
     emit(SettingsState.loading);
-
-    final result = await userRepository.saveUserProfile(event.user, event.imageFile);
-    if (result == 'success') {
-      emit(SettingsState.success);
-    } else {
-      emit(SettingsState.error);
+    try {
+      final result = await userRepository.saveUserProfile(event.user, event.imageFile);
+      if (result == 'success') {
+        print('Save successful');
+        emit(SettingsState.success);
+      } else {
+        print('Error occurred while saving');
+        emit(SettingsState.error);
+      }
+    } catch (e) {
+        print('Error occurred while saving: $e');
+        emit(SettingsState.error);
+      }
     }
-  }
 }

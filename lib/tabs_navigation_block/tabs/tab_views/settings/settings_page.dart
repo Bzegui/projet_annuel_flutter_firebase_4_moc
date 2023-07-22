@@ -24,6 +24,7 @@ class SettingsPage extends StatelessWidget {
     TextEditingController(text: currentUser.name);
     final TextEditingController birthDateController =
     TextEditingController(text: currentUser.birthDate);
+    final String userID = currentUser.id;
 
     UsersRemoteDataSource usersRemoteDataSource = UsersRemoteDataSource();
     final userRepository =
@@ -84,7 +85,7 @@ class SettingsPage extends StatelessWidget {
                         name: lastName,
                         birthDate: birthDate,
                         photo: '',
-                        id: '',
+                        id: userID
                       ),
                       null,
                     ),
