@@ -1,3 +1,5 @@
+
+
 part of 'contacts_bloc.dart';
 
 @immutable
@@ -25,6 +27,15 @@ class AddContactUserToContactUserItemsList extends ContactsEvent {
 
   @override
   List<Object> get props => [user];
+}
+
+class StartConversation extends ContactsEvent {
+  final User otherUser;
+
+  const StartConversation(this.otherUser);
+
+  @override
+  List<Object> get props => [otherUser];
 }
 
 

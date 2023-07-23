@@ -14,6 +14,7 @@ class ContactsState extends Equatable {
   final List<User> retrievedContactUsers;
   final List<User> contactUserItemsList;
   final String? errorMessage;
+  final bool conversationStarted;
 
   const ContactsState({
     this.contactId = const ContactId.pure(),
@@ -22,6 +23,7 @@ class ContactsState extends Equatable {
     this.retrievedContactUsers = const <User>[],
     this.contactUserItemsList = const <User>[],
     this.errorMessage,
+    this.conversationStarted = false,
   });
 
   ContactsState copyWith({
@@ -32,6 +34,7 @@ class ContactsState extends Equatable {
     List<User>? retrievedContactUsers,
     List<User>? contactUserItemsList,
     String? errorMessage,
+    bool? conversationStarted,
   }) {
     return ContactsState(
       contactId: contactId ?? this.contactId,
@@ -40,6 +43,7 @@ class ContactsState extends Equatable {
       retrievedContactUsers: retrievedContactUsers ?? this.retrievedContactUsers,
       contactUserItemsList: contactUserItemsList ?? this.contactUserItemsList,
       errorMessage: errorMessage ?? this.errorMessage,
+      conversationStarted: conversationStarted ?? this.conversationStarted,
     );
   }
 
@@ -50,6 +54,7 @@ class ContactsState extends Equatable {
     isValid,
     retrievedContactUsers,
     contactUserItemsList,
-    errorMessage
+    errorMessage,
+    conversationStarted,
   ];
 }
