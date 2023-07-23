@@ -37,76 +37,78 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ProfileImagePicker(),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'First Name',
-                  ),
-                  controller: firstNameController,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Last Name',
-                  ),
-                  controller: lastNameController,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Date of Birth',
-                  ),
-                  controller: birthDateController,
-                ),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final firstName = firstNameController.text;
-                  final lastName = lastNameController.text;
-                  final birthDate = birthDateController.text;
-                  final settingsBloc = context.read<SettingsBloc>();
-                  settingsBloc.add(
-                    SaveSettingsEvent(
-                      User(
-                        firstName: firstName,
-                        name: lastName,
-                        birthDate: birthDate,
-                        photo: '',
-                        id: userID
-                      ),
-                      null,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ProfileImagePicker(),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'First Name',
                     ),
-                  );
-                },
-                child: const Text('Save'),
-              ),
-              BlocBuilder<SettingsBloc, SettingsState>(
-                builder: (context, state) {
-                  if (state == SettingsState.success) {
-                    return const Text('Save successful');
-                  } else if (state == SettingsState.error) {
-                    return const Text('Error occurred while saving');
-                  } else if (state == SettingsState.loading) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-            ],
+                    controller: firstNameController,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Last Name',
+                    ),
+                    controller: lastNameController,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Date of Birth',
+                    ),
+                    controller: birthDateController,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    final firstName = firstNameController.text;
+                    final lastName = lastNameController.text;
+                    final birthDate = birthDateController.text;
+                    final settingsBloc = context.read<SettingsBloc>();
+                    settingsBloc.add(
+                      SaveSettingsEvent(
+                        User(
+                          firstName: firstName,
+                          name: lastName,
+                          birthDate: birthDate,
+                          photo: '',
+                          id: userID
+                        ),
+                        null,
+                      ),
+                    );
+                  },
+                  child: const Text('Save'),
+                ),
+                BlocBuilder<SettingsBloc, SettingsState>(
+                  builder: (context, state) {
+                    if (state == SettingsState.success) {
+                      return const Text('Save successful');
+                    } else if (state == SettingsState.error) {
+                      return const Text('Error occurred while saving');
+                    } else if (state == SettingsState.loading) {
+                      return const CircularProgressIndicator();
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
