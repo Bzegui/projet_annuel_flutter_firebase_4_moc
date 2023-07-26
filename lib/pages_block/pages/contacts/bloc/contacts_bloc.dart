@@ -14,7 +14,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     required UsersRepository usersRepository,
   }) : _usersRepository = usersRepository, super(const ContactsState()) {
     on<GetContactUserById>(_onGetContactUserById);
-    on<AddContactUserToContactUserItemsList>(_onAddContactUserToContactUserItemsList);
+    on<AddContactUserToContactUserItemsList>
+      (_onAddContactUserToContactUserItemsList);
   }
 
   final UsersRepository _usersRepository;
@@ -53,7 +54,8 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       AddContactUserToContactUserItemsList event,
       Emitter<ContactsState> emit,
       ) {
-    final updatedContactUserItemsList = [...state.contactUserItemsList, event.user];
+    final updatedContactUserItemsList = [...state.contactUserItemsList,
+      event.user];
     final updatedContactUserItemsListState = state.copyWith(
       contactUserItemsList: updatedContactUserItemsList,
       contactsStatus: ContactsStatus.fetchedContacts,
