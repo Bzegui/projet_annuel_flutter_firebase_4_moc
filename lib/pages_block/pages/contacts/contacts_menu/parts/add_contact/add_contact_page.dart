@@ -17,14 +17,8 @@ class AddContactPage extends StatelessWidget {
             child:
               Container(
                 padding: const EdgeInsets.all(8),
-                child: BlocProvider<ContactsBloc>(
-                  create: (context) => ContactsBloc(
-                      usersRepository: context.read<UsersRepository>()
-                  ),
-                  child: const AddContactForm(),
-                ),
+                child: const AddContactForm(),
               ),
-
           )
       );
   }
