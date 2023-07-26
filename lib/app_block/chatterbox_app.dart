@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/theme.dart';
 
+import '../pages_block/pages/contacts/bloc/contacts_bloc.dart';
+
 class ChatterboxApp extends StatelessWidget {
   const ChatterboxApp({
     required AuthenticationRepository authenticationRepository,
@@ -30,6 +32,11 @@ class ChatterboxApp extends StatelessWidget {
           BlocProvider<AppAuthBloc>(
             create: (_) => AppAuthBloc(
               authenticationRepository: _authenticationRepository,
+            ),
+          ),
+          BlocProvider<ContactsBloc>(
+            create: (context) => ContactsBloc(
+             usersRepository: context.read<UsersRepository>()
             ),
           ),
         ],

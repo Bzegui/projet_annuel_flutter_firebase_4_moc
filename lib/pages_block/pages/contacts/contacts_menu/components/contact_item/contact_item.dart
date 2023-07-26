@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:users/users_exports.dart';
 
 import '../../../bloc/contacts_bloc.dart';
+import '../../view/contacts_page.dart';
 
 class ContactUserItem extends StatelessWidget {
   const ContactUserItem({
@@ -34,6 +35,11 @@ class ContactUserItem extends StatelessWidget {
       onTap: () {
         final contactsBloc = BlocProvider.of<ContactsBloc>(context);
         contactsBloc.add(AddContactUserToContactUserItemsList(user));
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ContactsPage()),
+        );
       },
     );
   }

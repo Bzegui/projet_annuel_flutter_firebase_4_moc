@@ -26,7 +26,8 @@ class _AddContactFormState extends State<AddContactForm> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Failed getting contact')),
+              SnackBar(content: Text(state.errorMessage ??
+                  'Failed getting contact')),
             );
         }
       },
@@ -67,9 +68,11 @@ class _AddContactFormState extends State<AddContactForm> {
                             child: Center(child: CircularProgressIndicator()),
                           );
                         case ContactsStatus.fetchedContacts:
-                          return _buildContactUsersList(context, state.retrievedContactUsers);
+                          return _buildContactUsersList(context,
+                              state.retrievedContactUsers);
                         default:
-                          return _buildContactUsersList(context, state.retrievedContactUsers);
+                          return _buildContactUsersList(context,
+                              state.retrievedContactUsers);
                       }
                     },
                   )
