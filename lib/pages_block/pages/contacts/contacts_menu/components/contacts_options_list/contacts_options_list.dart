@@ -18,7 +18,8 @@ class ContactsOptionsList extends StatelessWidget {
             builder: (context) {
               return Column(
                   children: [
-                    BlocBuilder<ContactsOptionsItemsBloc, ContactsOptionsItemsRepositoryState>(
+                    BlocBuilder<ContactsOptionsItemsBloc,
+                        ContactsOptionsItemsRepositoryState>(
                         builder: (context, state) {
                           switch (state.status) {
                             case ContactsOptionsItemsStatus.initial:
@@ -32,7 +33,8 @@ class ContactsOptionsList extends StatelessWidget {
                                 child: Text(state.error),
                               );
                             case ContactsOptionsItemsStatus.success:
-                              final contactsOptionsItems = state.contactsOptionsItem;
+                              final contactsOptionsItems =
+                                  state.contactsOptionsItem;
 
                               if (contactsOptionsItems.isEmpty) {
                                 return const Center(
@@ -44,7 +46,8 @@ class ContactsOptionsList extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemCount: contactsOptionsItems.length,
                                 itemBuilder: (context, index) {
-                                  final contactsOptionsItem = contactsOptionsItems[index];
+                                  final contactsOptionsItem =
+                                  contactsOptionsItems[index];
                                   return ContactOptionsItems(
                                     contactsOptionsItem: contactsOptionsItem,
                                   );
