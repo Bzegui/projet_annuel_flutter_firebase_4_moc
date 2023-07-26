@@ -21,7 +21,6 @@ class _ContactItemsListState extends State<ContactItemsList> {
         children: [
           BlocBuilder<ContactsBloc, ContactsState>(
               builder: (context, state) {
-                debugPrint('${state.contactUserItemsList}');
                 switch (state.contactsStatus) {
                   case ContactsStatus.fetchingContacts:
                     return const SizedBox(
@@ -29,14 +28,13 @@ class _ContactItemsListState extends State<ContactItemsList> {
                       child: Center(child: CircularProgressIndicator()),
                     );
                   case ContactsStatus.fetchedContacts:
-                    return _buildContactItemsList(context, state.retrievedContactUsers);
+                    return _buildContactItemsList(context,
+                        state.contactUserItemsList);
                   default:
-                    return _buildContactItemsList(context, state.retrievedContactUsers);
+                    return _buildContactItemsList(context,
+                        state.contactUserItemsList);
                 }
-
-                  return _buildContactItemsList(context,
-                          state.retrievedContactUsers);
-                }
+              }
           ),
         ]
     );
