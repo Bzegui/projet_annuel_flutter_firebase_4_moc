@@ -1,37 +1,36 @@
-part of 'message_bloc.dart';
+import '../model/message.dart';
 
 enum MessageStatus {
   initial,
-  messageSent,
+  loading,
+  loaded,
   error,
 }
 
-class MessageState extends Equatable {
+class MessageState {
   final MessageStatus status;
+  final List<Message> messages;
   final String? errorMessage;
 
-  const MessageState._({
-    this.status = MessageStatus.initial,
+  const MessageState({
+    required this.status,
+    required this.messages,
     this.errorMessage,
   });
 
-  const MessageState.initial() : this._();
-
-  const MessageState.messageSent() : this._(status: MessageStatus.messageSent);
-
-  const MessageState.error(String errorMessage)
-      : this._(status: MessageStatus.error, errorMessage: errorMessage);
-
-  @override
-  List<Object?> get props => [status, errorMessage];
+  factory MessageState.initial() {
+    return const MessageState(status: MessageStatus.initial, messages: []);
+  }
 
   MessageState copyWith({
     MessageStatus? status,
+    List<Message>? messages,
     String? errorMessage,
   }) {
-    return MessageState._(
+    return MessageState(
       status: status ?? this.status,
-      errorMessage: errorMessage,
+      messages: messages ?? this.messages,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

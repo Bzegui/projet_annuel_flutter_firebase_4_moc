@@ -1,104 +1,119 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-part 'conversation_event.dart';
-part 'conversation_state.dart';
+import 'package:firebase_database/firebase_database.dart';
+import '../../messages/model/message.dart';
+import 'conversation_event.dart';
+import 'conversation_state.dart';
 
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseFirestore _firestore;
+  final FirebaseDatabase _firebaseDatabase;
 
   ConversationBloc({
     required FirebaseAuth firebaseAuth,
-    required FirebaseFirestore firestore})
-      : _firebaseAuth = firebaseAuth,
-        _firestore = firestore,
-        super(const ConversationState.initial());
+    required FirebaseDatabase firebaseDatabase,
+  })  : _firebaseAuth = firebaseAuth,
+        _firebaseDatabase = firebaseDatabase,
+        super(ConversationState(conversationId: ''));
 
   @override
-  Stream<ConversationState> mapEventToState(
-      ConversationEvent event,
-      ) async* {
-    if (event is StartConversationEvent) {
-      yield* _mapStartConversationEventToState(event);
-    } else if (event is SendMessageEvent) {
-      yield* _mapSendMessageEventToState(event);
+  Stream<ConversationState> mapEventToState(ConversationEvent event) async* {
+    if (event is StartConversation) {
+      yield* _mapStartConversationToState(event);
+    } else if (event is SendMessage) {
+      yield* _mapSendMessageToState(event);
     }
   }
 
-  Stream<ConversationState> _mapStartConversationEventToState(
-      StartConversationEvent event) async* {
+  Stream<ConversationState> _mapStartConversationToState(StartConversation event) async* {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser == null) {
+      yield state.copyWith(status: ConversationStatus.error, errorMessage: 'User not authenticated.');
+      return;
+    }
+
     try {
-      final currentUser = _firebaseAuth.currentUser;
-      if (currentUser == null) {
-        yield const ConversationState.error("User not logged in.");
-        return;
-      }
+      final conversationRef = _firebaseDatabase.ref().child('conversations').push();
+      final conversationId = conversationRef.key;
 
-      final conversationRef = _firestore.collection('conversations').doc();
-      final conversationId = conversationRef.id;
-      final participants = [currentUser.uid, event.otherUserId];
+      // Add both users as participants to the conversation
+      final participants = {
+        currentUser.uid: true,
+        event.otherUserId: true,
+      };
+      await conversationRef.child('participants').set(participants);
 
-      await conversationRef.set({
-        'participants': participants.fold<Map<String, bool>>({}, (map, id) {
-          map[id] = true;
-          return map;
-        }),
-      });
-
-      yield ConversationState.conversationStarted(
-          conversationId,
-          participants
-      );
+      // Return the conversationId
+      yield state.copyWith(conversationId: conversationId, status: ConversationStatus.success);
     } catch (e) {
-      yield ConversationState.error("Failed to start conversation: $e");
+      yield state.copyWith(status: ConversationStatus.error, errorMessage: 'Error starting conversation.');
     }
   }
 
-  Stream<ConversationState> _mapSendMessageEventToState(
-      SendMessageEvent event) async* {
+  Stream<ConversationState> _mapSendMessageToState(SendMessage event) async* {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser == null) {
+      yield state.copyWith(status: ConversationStatus.error, errorMessage: 'User not authenticated.');
+      return;
+    }
+
     try {
-      final currentUser = _firebaseAuth.currentUser;
-      if (currentUser == null) {
-        yield const ConversationState.error("User not logged in.");
-        return;
-      }
+      // Save the message to the Firebase Realtime Database
+      final messageRef = _firebaseDatabase.ref().child('conversations').child(event.conversationId).child('messages').push();
+      final messageId = messageRef.key;
 
-
-      final conversationRef = _firestore.collection(
-          'conversations').
-      doc(event.conversationId);
-      final conversationSnapshot = await conversationRef.get();
-      if (!conversationSnapshot.exists) {
-        yield const ConversationState.error("Conversation not found.");
-        return;
-      }
-
-
-      final participants = List<String>.from(
-          conversationSnapshot[
-            'participants'
-          ].keys);
-
-      if (!participants.contains(
-          currentUser.uid)) {
-        yield const ConversationState.error("You are not a participant in this conversation.");
-        return;
-      }
-      final message = {
+      final messageData = {
         'senderId': currentUser.uid,
         'receiverId': event.receiverId,
         'text': event.message,
         'timestamp': DateTime.now().millisecondsSinceEpoch,
       };
-      await conversationRef.collection('messages').add(message);
 
-      yield const ConversationState.messageSent();
+      await messageRef.set(messageData);
+
+      // Reload the conversation data after sending the message
+      yield state.copyWith(status: ConversationStatus.loading);
+      String? conversationId = state.conversationId;
+
+      yield await _reloadConversationData(state.conversationId);
     } catch (e) {
-      yield ConversationState.error("Failed to send message: $e");
+      yield state.copyWith(status: ConversationStatus.error, errorMessage: 'Error sending message.');
     }
+  }
+
+  Future<ConversationState> _reloadConversationData(String conversationId) async {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser == null) {
+      return state.copyWith(status: ConversationStatus.error, errorMessage: 'User not authenticated.');
+    }
+
+    final conversationRef = _firebaseDatabase.ref().child('conversations').child(conversationId);
+    final conversationSnapshot = await conversationRef.once();
+
+    final data = conversationSnapshot.snapshot.value as Map<dynamic, dynamic>?;
+
+    if (data == null) {
+      return state.copyWith(status: ConversationStatus.error, errorMessage: 'Conversation not found.');
+    }
+
+    final participants = data['participants'] ;//as Map<dynamic, dynamic>?;
+    final messagesData = data['messages'] ;// as Map<dynamic, dynamic>?;
+
+    final messages = messagesData?.entries.map((entry) {
+      final messageData = entry.value as Map<dynamic, dynamic>;
+      return Message(
+        id: entry.key,
+        senderId: messageData['senderId'],
+        receiverId: messageData['receiverId'],
+        text: messageData['text'],
+        timestamp: DateTime.fromMillisecondsSinceEpoch(messageData['timestamp']),
+      );
+    })?.toList();
+
+    return state.copyWith(
+      participants: participants,// ?.keys.map((userId) => userId.toString()).toList() ?? [],
+      messages: messages ?? [],
+      status: ConversationStatus.success,
+    );
   }
 }

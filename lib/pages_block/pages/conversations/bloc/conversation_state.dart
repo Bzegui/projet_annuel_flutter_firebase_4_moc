@@ -1,63 +1,43 @@
-part of 'conversation_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:users/users_exports.dart';
 
-enum ConversationStatus {
-  initial,
-  conversationStarted,
-  messageSent,
-  error,
-}
+import '../../messages/model/message.dart';
+
+enum ConversationStatus { initial, loading, success, error }
+
 
 class ConversationState extends Equatable {
+  final String conversationId;
   final ConversationStatus status;
-  final String? conversationId;
-  final List<String> participants;
   final String? errorMessage;
+  final List<User> participants;
+  final List<Message> messages;
 
-  const ConversationState._({
+  ConversationState({
+    required this.conversationId,
     this.status = ConversationStatus.initial,
-    this.conversationId,
-    this.participants = const [],
     this.errorMessage,
+    this.participants = const [],
+    this.messages = const [],
   });
 
-  const ConversationState.initial() : this._();
-
-  const ConversationState.conversationStarted(
-      String conversationId,
-      List<String> participants,
-      ) : this._(
-    status: ConversationStatus.conversationStarted,
-    conversationId: conversationId,
-    participants: participants,
-  );
-
-  const ConversationState.messageSent() : this._(status: ConversationStatus.messageSent);
-
-  const ConversationState.error(String errorMessage)
-      : this._(
-      status: ConversationStatus.error,
-      errorMessage: errorMessage
-  );
-
-  @override
-  List<Object?> get props => [
-    status,
-    conversationId,
-    participants,
-    errorMessage
-  ];
-
   ConversationState copyWith({
-    ConversationStatus? status,
     String? conversationId,
-    List<String>? participants,
+    ConversationStatus? status,
     String? errorMessage,
+    List<User>? participants,
+    List<Message>? messages,
   }) {
-    return ConversationState._(
-      status: status ?? this.status,
+    return ConversationState(
       conversationId: conversationId ?? this.conversationId,
-      participants: participants ?? this.participants,
+      status: status ?? this.status,
       errorMessage: errorMessage,
+      participants: participants ?? this.participants,
+      messages: messages ?? this.messages,
     );
   }
+
+  @override
+  List<Object?> get props => [conversationId, status, errorMessage, participants, messages];
+
 }

@@ -1,6 +1,3 @@
-import 'dart:js';
-import 'dart:js';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,17 +13,19 @@ part 'contacts_state.dart';
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({
     required UsersRepository usersRepository,
-  }) : _usersRepository = usersRepository, super(const ContactsState()) {
+  })
+      : _usersRepository = usersRepository,
+        super(const ContactsState()) {
     on<GetContactUserById>(_onGetContactUserById);
-    on<AddContactUserToContactUserItemsList>(_onAddContactUserToContactUserItemsList);
-    on<StartConversation>(_onStartConversation);
+    on<AddContactUserToContactUserItemsList>(
+        _onAddContactUserToContactUserItemsList);
+    //on<StartConversation>(_onStartConversation);
   }
 
   final UsersRepository _usersRepository;
 
-  void _onGetContactUserById (
-      GetContactUserById event, Emitter<ContactsState> emit,
-      ) async {
+  void _onGetContactUserById(GetContactUserById event,
+      Emitter<ContactsState> emit,) async {
     final contactId = ContactId.dirty(event.contactId);
 
     emit(
@@ -47,7 +46,6 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
         return state.copyWith(contactsStatus: ContactsStatus.fetchedContacts,
             retrievedContactUsers: retrievedContactUsers);
       });
-
     } catch (error) {
       emit(state.copyWith(contactsStatus:
       ContactsStatus.errorFetchingContacts));
@@ -56,9 +54,11 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
 
   void _onAddContactUserToContactUserItemsList(
       AddContactUserToContactUserItemsList event,
-      Emitter<ContactsState> emit,
-      ) {
-    final updatedContactUserItemsList = [...state.contactUserItemsList, event.user];
+      Emitter<ContactsState> emit,) {
+    final updatedContactUserItemsList = [
+      ...state.contactUserItemsList,
+      event.user
+    ];
     final updatedContactUserItemsListState = state.copyWith(
       contactUserItemsList: updatedContactUserItemsList,
       contactsStatus: ContactsStatus.fetchedContacts,
@@ -66,8 +66,9 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
 
     emit(updatedContactUserItemsListState);
   }
-  // creat conversation
-  void _onStartConversation(StartConversation event, Emitter<ContactsState> emit) async {
+
+// creat conversation
+/*void _onStartConversation(StartConversation event, Emitter<ContactsState> emit) async {
     emit(state.copyWith(conversationStarted: true));
 
     try {
@@ -97,4 +98,5 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       emit(state.copyWith(conversationStarted: false, errorMessage: 'Error while saving the conversation'));
     }
 
+}*/
 }

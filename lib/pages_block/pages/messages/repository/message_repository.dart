@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-
 import '../model/message.dart';
 
 class MessageRepository {
@@ -13,13 +14,16 @@ class MessageRepository {
   })  : _firebaseAuth = firebaseAuth,
         _firebaseDatabase = firebaseDatabase;
 
-  Future<void> sendMessage(String conversationId, String receiverId, String message) async {
+  Future<void> sendMessage({
+    required String conversationId,
+    required String receiverId,
+    required String message,
+  }) async {
     final currentUser = _firebaseAuth.currentUser;
     if (currentUser == null) return;
 
     try {
-
-      final messageRef = _firebaseDatabase.reference().child('conversations').child(conversationId).child('messages').push();
+      final messageRef = _firebaseDatabase.ref().child('conversations').child(conversationId).child('messages').push();
       final messageId = messageRef.key;
 
       final messageData = {
@@ -32,33 +36,38 @@ class MessageRepository {
       await messageRef.set(messageData);
     } catch (e) {
       print("Error sending message: $e");
+      throw e;
     }
   }
 
-  Stream<List<Message>> getMessageStream(String conversationId) {
+  Future<List<Message>> getMessages(String conversationId) async {
     final currentUser = _firebaseAuth.currentUser;
     if (currentUser == null) {
-      return Stream.empty();
+      return [];
     }
 
-    final conversationRef = _firebaseDatabase.reference().child('conversations').child(conversationId).child('messages');
+    final conversationRef = _firebaseDatabase.ref().child('conversations').child(conversationId);
+    final messagesRef = conversationRef.child('messages');
 
-    return conversationRef.onValue.map((event) {
-      final data = event.snapshot.value as Map<dynamic, dynamic>?;
-      if (data == null) {
-        return [];
-      }
+    final messagesSnapshot = await messagesRef.once();
 
-      return data.entries.map((entry) {
-        final messageData = entry.value as Map<dynamic, dynamic>;
-        return Message(
-          id: entry.key,
-          senderId: messageData['senderId'],
-          receiverId: messageData['receiverId'],
-          text: messageData['text'],
-          timestamp: DateTime.fromMillisecondsSinceEpoch(messageData['timestamp']),
-        );
-      }).toList();
-    });
+    final messagesData = messagesSnapshot.snapshot.value as Map<dynamic, dynamic>?;
+
+    if (messagesData == null) {
+      return [];
+    }
+
+    final messages = messagesData.entries.map((entry) {
+      final messageData = entry.value as Map<dynamic, dynamic>;
+      return Message(
+        id: entry.key,
+        senderId: messageData['senderId'],
+        receiverId: messageData['receiverId'],
+        text: messageData['text'],
+        timestamp: DateTime.fromMillisecondsSinceEpoch(messageData['timestamp']),
+      );
+    }).toList();
+
+    return messages;
   }
 }

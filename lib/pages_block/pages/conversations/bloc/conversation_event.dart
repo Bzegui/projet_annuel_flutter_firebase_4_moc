@@ -1,4 +1,5 @@
-part of 'conversation_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:users/users_exports.dart';
 
 abstract class ConversationEvent extends Equatable {
   const ConversationEvent();
@@ -7,21 +8,21 @@ abstract class ConversationEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class StartConversationEvent extends ConversationEvent {
+class StartConversation extends ConversationEvent {
   final String otherUserId;
 
-  const StartConversationEvent(this.otherUserId);
+  StartConversation(this.otherUserId);
 
   @override
   List<Object?> get props => [otherUserId];
 }
 
-class SendMessageEvent extends ConversationEvent {
+class SendMessage extends ConversationEvent {
   final String conversationId;
   final String receiverId;
   final String message;
 
-  const SendMessageEvent({
+  SendMessage({
     required this.conversationId,
     required this.receiverId,
     required this.message,

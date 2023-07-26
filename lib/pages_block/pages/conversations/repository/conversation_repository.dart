@@ -1,34 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-
 import '../../messages/model/message.dart';
 import '../model/conversation.dart';
 
 class ConversationRepository {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseDatabase _firebaseDatabase;
+  final DatabaseReference _databaseReference;
 
   ConversationRepository({
     required FirebaseAuth firebaseAuth,
-    required FirebaseDatabase firebaseDatabase,
+    required DatabaseReference databaseReference,
   })  : _firebaseAuth = firebaseAuth,
-        _firebaseDatabase = firebaseDatabase;
+        _databaseReference = databaseReference;
 
   Future<String?> startConversationWithUser(String otherUserId) async {
     final currentUser = _firebaseAuth.currentUser;
     if (currentUser == null) return null;
 
     try {
-      final conversationRef = _firebaseDatabase.reference().child('conversations').push();
+      // Create a new conversation node in the database
+      final conversationRef = _databaseReference.child('conversations').push();
       final conversationId = conversationRef.key;
 
-
+      // Add both users as participants to the conversation
       final participants = {
         currentUser.uid: true,
         otherUserId: true,
       };
       await conversationRef.child('participants').set(participants);
 
+      // Return the conversationId
       return conversationId;
     } catch (e) {
       print("Error starting conversation: $e");
@@ -41,7 +42,8 @@ class ConversationRepository {
     if (currentUser == null) return;
 
     try {
-      final messageRef = _firebaseDatabase.reference().child('conversations').child(conversationId).child('messages').push();
+      // Save the message to the Firebase Realtime Database
+      final messageRef = _databaseReference.child('conversations').child(conversationId).child('messages').push();
       final messageId = messageRef.key;
 
       final messageData = {
@@ -63,7 +65,7 @@ class ConversationRepository {
       return Stream.empty();
     }
 
-    final conversationRef = _firebaseDatabase.reference().child('conversations').child(conversationId);
+    final conversationRef = _databaseReference.child('conversations').child(conversationId);
 
     return conversationRef.onValue.map((event) {
       final data = event.snapshot.value as Map<dynamic, dynamic>?;
@@ -87,9 +89,9 @@ class ConversationRepository {
 
       return Conversation(
         id: conversationId,
-        participants: participants?.keys.map((userId) => userId.toString()).toList(),
+        participants: participants?.keys.map((userId) => userId.toString()).toList() ?? [],
         messages: messages ?? [],
-        lastMessage: {},
+        lastMessage: messages?.last ?? Message.empty(),
       );
     });
   }

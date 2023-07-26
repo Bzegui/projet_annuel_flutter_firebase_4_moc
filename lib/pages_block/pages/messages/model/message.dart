@@ -5,7 +5,7 @@ class Message extends Equatable {
   final String senderId;
   final String receiverId;
   final String text;
-  final int timestamp;
+  final DateTime timestamp;
 
   Message({
     required this.id,
@@ -14,6 +14,16 @@ class Message extends Equatable {
     required this.text,
     required this.timestamp,
   });
+
+  factory Message.empty() {
+    return Message(
+      id: '',
+      senderId: '',
+      receiverId: '',
+      text: '',
+      timestamp: DateTime.now(),
+    );
+  }
 
   @override
   List<Object?> get props => [id, senderId, receiverId, text, timestamp];
