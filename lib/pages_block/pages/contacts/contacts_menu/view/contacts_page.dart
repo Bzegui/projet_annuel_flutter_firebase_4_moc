@@ -9,7 +9,6 @@ import '../components/components_exports.dart';
 class ContactsPage extends StatelessWidget {
 
   const ContactsPage({Key? key}) : super(key: key);
-
   static Page<void> page() => const MaterialPage<void>(child: ContactsPage());
 
   @override
@@ -27,7 +26,7 @@ class ContactsPage extends StatelessWidget {
                   ),
                 child: Builder(
                     builder: (context) {
-                      return  CustomScrollView(
+                      return CustomScrollView(
                         slivers: <Widget>[
                           SliverList(
                               delegate: SliverChildListDelegate(
@@ -42,9 +41,6 @@ class ContactsPage extends StatelessWidget {
                     }
                 ),
               )
-
-
-
             ),
       );
   }
