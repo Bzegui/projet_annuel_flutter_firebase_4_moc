@@ -75,6 +75,7 @@ class SettingsPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
+                    //_crash();
                     final firstName = firstNameController.text;
                     final lastName = lastNameController.text;
                     final birthDate = birthDateController.text;
@@ -177,3 +178,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     );
   }
 }
+
+
+//void _crash() {
+  //throw Exception("App crashed, TEST MAAZ !");
+//}

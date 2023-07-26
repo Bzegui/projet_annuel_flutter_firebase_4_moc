@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:isolate';
+
 import 'package:bloc/bloc.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:users/users_exports.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,12 +17,24 @@ Future<void> main() async {
   Bloc.observer = const AppAuthBlocObserver();
 
   await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final usersRemoteDataSource = UsersRemoteDataSource();
   final authenticationRepository = AuthenticationRepository(usersRemoteDataSource: usersRemoteDataSource);
   await authenticationRepository.user.first;
 
-  runApp(ChatterboxApp(authenticationRepository: authenticationRepository));
-}
+  runZonedGuarded<Future<void>>(() async {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
+    Isolate.current.addErrorListener(RawReceivePort((pair) async {
+      final List<dynamic> errorAndStacktrace = pair;
+      await FirebaseCrashlytics.instance.recordError(
+        errorAndStacktrace.first,
+        errorAndStacktrace.last,
+      );
+    }).sendPort);
+
+    runApp(ChatterboxApp(authenticationRepository: authenticationRepository));
+  }, FirebaseCrashlytics.instance.recordError);
+}
 

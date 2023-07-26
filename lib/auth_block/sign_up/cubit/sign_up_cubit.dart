@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:users/users_exports.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -100,8 +101,9 @@ class SignUpCubit extends Cubit<SignUpState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      FirebaseCrashlytics.instance.recordError(error, stackTrace);
     }
   }
 }
