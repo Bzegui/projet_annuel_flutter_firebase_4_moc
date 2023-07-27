@@ -18,34 +18,32 @@ class ContactsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Contacts'),
       ),
-      body: RepositoryProvider(
-              create: (context) => ContactsOptionsItemsRepository(
-              contactsOptionsItemsDataSource: ContactsOptionsItemsLocalDataSource()),
-              child: BlocProvider<ContactsBloc>(
-                  create: (context) => ContactsBloc(
-                      usersRepository: context.read<UsersRepository>()
-                  ),
-                child: Builder(
-                    builder: (context) {
-                      return  CustomScrollView(
-                        slivers: <Widget>[
-                          SliverList(
-                              delegate: SliverChildListDelegate(
-                                  [
-                                    const ContactsOptionsList(),
-                                    const ContactItemsList(),
-                                  ]
-                              )
-                          )
-                        ],
-                      );
-                    }
-                ),
-              )
-
-
-
+      body: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<ContactsOptionsItemsRepository>(
+            create: (context) => ContactsOptionsItemsRepository(
+              contactsOptionsItemsDataSource: ContactsOptionsItemsLocalDataSource()
             ),
+          ),
+        ],
+        child:
+            Builder(
+                builder: (context) {
+                  return  CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                          delegate: SliverChildListDelegate(
+                              [
+                                const ContactsOptionsList(),
+                                const ContactItemsList(),
+                              ]
+                          )
+                      )
+                    ],
+                  );
+                }
+            ),
+        ),
       );
   }
 
