@@ -16,7 +16,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const AppAuthBlocObserver();
 
-  await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final usersRemoteDataSource = UsersRemoteDataSource();

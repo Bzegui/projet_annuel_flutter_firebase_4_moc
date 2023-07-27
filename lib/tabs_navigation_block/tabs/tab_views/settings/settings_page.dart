@@ -179,7 +179,6 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 }
 
-
 //void _crash() {
   //throw Exception("App crashed, TEST MAAZ !");
 //}
