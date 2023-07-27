@@ -31,9 +31,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  #auth-repository dependencies
-  authentication_repository:
-    path: packages/authentication_repository
+  #users dependencies
+  users:
+    path: packages/users
   #contact-repository dependencies
   contacts_repository:
     path: packages/contacts_repository
@@ -60,6 +60,8 @@ dependencies:
   #flutter dependencies
   flutter:
     sdk: flutter
+  image_picker: ^0.8.4+4
+  firebase_storage: ^11.2.5
 
 dev_dependencies:
   #bloc dev-dependencies

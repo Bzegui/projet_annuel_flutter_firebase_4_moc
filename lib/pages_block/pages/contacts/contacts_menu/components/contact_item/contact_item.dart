@@ -1,24 +1,25 @@
-import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users/users_exports.dart';
 
 import '../../../bloc/contacts_bloc.dart';
+import '../../view/contacts_page.dart';
 
-class ContactItem extends StatelessWidget {
-  const ContactItem({
+class ContactUserItem extends StatelessWidget {
+  const ContactUserItem({
     Key? key,
-    required this.contact,
+    required this.user,
     this.onTap,
   }) : super(key: key);
 
-  final Contact contact;
+  final User user;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(contact.contactId),
-      subtitle: Text(contact.name),
+      title: Text(user.contactId ?? ''),
+      subtitle: Text(user.name ?? ''),
       leading: Container(
         height: 41,
         width: 41,
@@ -33,7 +34,12 @@ class ContactItem extends StatelessWidget {
       ),
       onTap: () {
         final contactsBloc = BlocProvider.of<ContactsBloc>(context);
-        contactsBloc.add(AddContactToContactItemsList(contact));
+        contactsBloc.add(AddContactUserToContactUserItemsList(user));
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ContactsPage()),
+        );
       },
     );
   }

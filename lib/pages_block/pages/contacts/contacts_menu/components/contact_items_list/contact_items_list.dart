@@ -2,6 +2,7 @@ import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users/users_exports.dart';
 
 import '../../../bloc/contacts_bloc.dart';
 import '../contact_item/contact_item.dart';
@@ -20,7 +21,6 @@ class _ContactItemsListState extends State<ContactItemsList> {
         children: [
           BlocBuilder<ContactsBloc, ContactsState>(
               builder: (context, state) {
-                debugPrint('${state.contactsItemsList}');
                 switch (state.contactsStatus) {
                   case ContactsStatus.fetchingContacts:
                     return const SizedBox(
@@ -28,22 +28,21 @@ class _ContactItemsListState extends State<ContactItemsList> {
                       child: Center(child: CircularProgressIndicator()),
                     );
                   case ContactsStatus.fetchedContacts:
-                    return _buildContactItemsList(context, state.retrievedContacts);
+                    return _buildContactItemsList(context,
+                        state.contactUserItemsList);
                   default:
-                    return _buildContactItemsList(context, state.retrievedContacts);
+                    return _buildContactItemsList(context,
+                        state.contactUserItemsList);
                 }
-
-                  return _buildContactItemsList(context,
-                          state.contactsItemsList);
-                }
+              }
           ),
         ]
     );
   }
 
-  Widget _buildContactItemsList(BuildContext context, List<Contact>
-  contactsItemsList) {
-    if (contactsItemsList.isEmpty) {
+  Widget _buildContactItemsList(BuildContext context, List<User>
+  contactUserItemsList) {
+    if (contactUserItemsList.isEmpty) {
       return const SizedBox(
         height: 80,
         child: Center(child: Text(
@@ -56,11 +55,11 @@ class _ContactItemsListState extends State<ContactItemsList> {
     }
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: contactsItemsList.length,
+      itemCount: contactUserItemsList.length,
       itemBuilder: (context, index) {
-        final contact = contactsItemsList[index];
-        return ContactItem(
-          contact: contact,
+        final contactUser = contactUserItemsList[index];
+        return ContactUserItem(
+          user: contactUser,
         );
       },
     );

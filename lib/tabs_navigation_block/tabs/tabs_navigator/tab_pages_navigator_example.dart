@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/auth_block/app_auth/app_auth_exports.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/tabs_navigation_block/tabs/tab_views/settings/settings_page_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +33,7 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
 
   @override
   Widget build(BuildContext context) {
+
     final textTheme = Theme
         .of(context)
         .textTheme;
@@ -68,10 +69,11 @@ class _TabPagesNavigatorState extends State<TabPagesNavigator> {
         body: const TabBarView(
           children: <Widget>[
             ChatRoomPage(),
-            SettingsPage(),
+            SettingsPage(currentUser: user),
           ],
         ),
       ),
     );
   }
 }
+*/

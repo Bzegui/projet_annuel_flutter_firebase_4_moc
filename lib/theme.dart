@@ -23,10 +23,11 @@ final theme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.yellow
+      backgroundColor: Colors.indigoAccent,
+      foregroundColor: Colors.white
     )
   ),
+
   listTileTheme: const ListTileThemeData(
     selectedTileColor: Colors.indigoAccent
   )

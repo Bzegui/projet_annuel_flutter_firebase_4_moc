@@ -1,6 +1,7 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users/users_exports.dart';
 import '../../bloc/contacts_bloc.dart';
 import '../components/components_exports.dart';
 
@@ -17,34 +18,42 @@ class ContactsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Contacts'),
       ),
-      body: RepositoryProvider(
-              create: (context) => ContactsOptionsItemsRepository(
-              contactsOptionsItemsDataSource: ContactsOptionsItemsLocalDataSource()),
-              child: BlocProvider<ContactsBloc>(
-                  create: (context) => ContactsBloc(
-                      contactsRepository: context.read<ContactsRepository>()
-                  ),
-                child: Builder(
-                    builder: (context) {
-                      return  CustomScrollView(
-                        slivers: <Widget>[
-                          SliverList(
-                              delegate: SliverChildListDelegate(
-                                  [
-                                    const ContactsOptionsList(),
-                                    const ContactItemsList(),
-                                  ]
-                              )
-                          )
-                        ],
-                      );
-                    }
-                ),
-              )
-
-
-
+      body: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<ContactsOptionsItemsRepository>(
+            create: (context) => ContactsOptionsItemsRepository(
+              contactsOptionsItemsDataSource: ContactsOptionsItemsLocalDataSource()
             ),
+          ),
+        ],
+        child:
+            Builder(
+                builder: (context) {
+                  return  CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                          delegate: SliverChildListDelegate(
+                              [
+                                const ContactsOptionsList(),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 3),
+                                  child: SizedBox(
+                                    height: 30, width: 200,
+                                    child: Divider(
+                                      color: Colors.grey,
+                                      height: 1,
+                                    ),
+                                  ),
+                                ),
+                                const ContactItemsList(),
+                              ]
+                          )
+                      )
+                    ],
+                  );
+                }
+            ),
+        ),
       );
   }
 
