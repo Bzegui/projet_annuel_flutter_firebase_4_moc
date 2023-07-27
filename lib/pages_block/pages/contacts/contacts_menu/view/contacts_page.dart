@@ -35,6 +35,16 @@ class ContactsPage extends StatelessWidget {
                           delegate: SliverChildListDelegate(
                               [
                                 const ContactsOptionsList(),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 3),
+                                  child: SizedBox(
+                                    height: 30, width: 200,
+                                    child: Divider(
+                                      color: Colors.grey,
+                                      height: 1,
+                                    ),
+                                  ),
+                                ),
                                 const ContactItemsList(),
                               ]
                           )
