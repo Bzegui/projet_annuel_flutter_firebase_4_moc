@@ -44,7 +44,7 @@ class _ContactItemsListState extends State<ContactItemsList> {
   contactUserItemsList) {
     if (contactUserItemsList.isEmpty) {
       return const SizedBox(
-        height: 80,
+        height: 40,
         child: Center(child: Text(
           "Aucun contact disponible",
           style: TextStyle(
