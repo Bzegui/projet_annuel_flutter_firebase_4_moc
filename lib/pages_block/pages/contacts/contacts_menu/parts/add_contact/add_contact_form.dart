@@ -1,4 +1,3 @@
-import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_annuel_flutter_firebase_4_moc/pages_block/pages/contacts/bloc/contacts_bloc.dart';
@@ -29,7 +28,15 @@ class _AddContactFormState extends State<AddContactForm> {
               SnackBar(content: Text(state.errorMessage ??
                   'Failed getting contact')),
             );
-        }
+        } else if (state.contactsStatus == ContactsStatus.duplicateContact) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(state.errorMessage ??
+                  'Contact is already in your contacts list')),
+            );
+        } // display error message if contact user is already present in the
+        // list
       },
       child: Align(
           alignment: const Alignment(0, -1 / 3),
@@ -132,4 +139,3 @@ class _ContactIdInput extends StatelessWidget {
     );
   }
 }
-
