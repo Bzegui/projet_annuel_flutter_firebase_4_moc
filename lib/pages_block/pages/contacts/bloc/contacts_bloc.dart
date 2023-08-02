@@ -9,6 +9,9 @@ import 'package:users/users_exports.dart';
 part 'contacts_event.dart';
 part 'contacts_state.dart';
 
+/// {@template contacts bloc}
+/// {@endtemplate}
+
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc({
     required UsersRepository usersRepository,
@@ -50,17 +53,37 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     }
   }
 
+  /// Add contact user with the provided [contactId].
+  /// contact duplicate check (verify with contact unique ID)
+  /// if user contact is already present in contacts user items list (by
+  /// comparing user contacts unique IDS), emit error state with error status,
+  /// if not add user contact to contacts user items list.
+
   void _onAddContactUserToContactUserItemsList(
       AddContactUserToContactUserItemsList event,
       Emitter<ContactsState> emit,
       ) {
-    final updatedContactUserItemsList = [...state.contactUserItemsList,
-      event.user];
-    final updatedContactUserItemsListState = state.copyWith(
-      contactUserItemsList: updatedContactUserItemsList,
-      contactsStatus: ContactsStatus.fetchedContacts,
-    );
+        final newContact = event.user; // new contact to add
 
-    emit(updatedContactUserItemsListState);
-  }
+        final isDuplicateContact = state.contactUserItemsList.any(
+              (contact) => contact.contactId == newContact.contactId,
+        );
+
+        if (isDuplicateContact) {
+          emit(state.copyWith(contactsStatus:
+          ContactsStatus.duplicateContact)); // emit error state
+
+        } else {
+
+          final updatedContactUserItemsList = [...state.contactUserItemsList,
+            event.user];
+
+          final updatedContactUserItemsListState = state.copyWith(
+            contactUserItemsList: updatedContactUserItemsList,
+            contactsStatus: ContactsStatus.fetchedContacts,
+          );
+
+          emit(updatedContactUserItemsListState);
+        }
+      }
 }
