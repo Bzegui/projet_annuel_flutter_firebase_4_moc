@@ -9,7 +9,6 @@ import '../../users_exports.dart';
 
 class UsersRepository {
   UsersRemoteDataSource usersRemoteDataSource;
-
   UsersRepository({required this.usersRemoteDataSource});
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
