@@ -1,8 +1,6 @@
 import 'package:contacts_repository/contacts_repository_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:users/users_exports.dart';
-import '../../bloc/contacts_bloc.dart';
 import '../components/components_exports.dart';
 
 
@@ -36,7 +34,7 @@ class ContactsPage extends StatelessWidget {
                               [
                                 const ContactsOptionsList(),
                                 const Padding(
-                                  padding: EdgeInsets.only(bottom: 3),
+                                  padding: EdgeInsets.only(bottom: 1),
                                   child: SizedBox(
                                     height: 30, width: 200,
                                     child: Divider(

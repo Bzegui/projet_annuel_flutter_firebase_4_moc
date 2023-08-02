@@ -4,7 +4,8 @@ enum ContactsStatus {
   initial,
   fetchingContacts,
   fetchedContacts,
-  errorFetchingContacts
+  errorFetchingContacts,
+  duplicateContact,
 }
 
 class ContactsState extends Equatable {
